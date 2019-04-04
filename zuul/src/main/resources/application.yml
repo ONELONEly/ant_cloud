@@ -1,0 +1,24 @@
+server:
+  port: 8768
+
+
+spring:
+  application:
+    name: service-zuul
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: service-ribbon
+    api-b:
+      path: /api-b/**
+      serviceId: service-feign
+  #zuul默认会丢弃原来的session并且生成新的session，所以有次配置
+  sensitive-headers: "*"
+

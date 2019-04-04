@@ -1,0 +1,48 @@
+spring:
+  profiles:
+    active: server1
+  application:
+    name: eureka_server
+
+eureka:
+  server:
+    #关闭自我保护机制（当心跳率低于85%会触发自我保护机制，保存当前的注册信息，并不会删掉没有心跳的服务，所以此处关闭自我保护机制）
+    enable-self-preservation: false
+---
+spring:
+  profiles: server1
+
+server:
+  port: 8761
+
+eureka:
+  instance:
+    hostname: server1
+
+  client:
+    #让服务器注册中心不注册自己
+    register-with-eureka: false
+    fetch-registry: false
+    ###
+    service-url:
+#      defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone:  http://server2:8760/eureka/
+---
+spring:
+  profiles: server2
+
+server:
+  port: 8760
+
+eureka:
+  instance:
+    hostname: server2
+
+  client:
+    #让服务器注册中心不注册自己
+    register-with-eureka: false
+    fetch-registry: false
+    ###
+    service-url:
+      #      defaultZone:  http://${eureka.instance.hostname}:${server.port}/eureka/
+      defaultZone:  http://server1:8761/eureka/

@@ -1,0 +1,14 @@
+server:
+  port: 8861
+
+spring:
+  application:
+    name: config-client
+
+  cloud:
+    config:
+      label: master
+      profile: dev
+      uri: http://localhost:8860/
+
+
