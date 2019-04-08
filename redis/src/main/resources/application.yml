@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8082
 
 spring:
   application:
@@ -13,32 +13,53 @@ spring:
     database: 0
     host: 127.0.0.1
     port: 6379
-#    password: WWJ19950811
-    jedis:
+    password: WWJ19950811
+    lettuce:
       pool:
-        max-active: 8
-        max-wait: -1ms
-        max-idle: 8
-        min-idle: 0
+        max-active: 32
+        max-wait: 300
+        max-idle: 16
+        min-idle: 8
 
-    timeout: 50ms
+    timeout: 10ms
+
+  local-redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: WWJ19950811
+    lettuce:
+      pool:
+        max-active: 16
+        max-wait: 100
+        max-idle: 8
+        min-idle: 4
+
+    timeout: 10ms
 
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
-    url: jdbc:oracle.thin:@//127.0.0.1:1521/antcloud
-    username: antms
-    password: antms1619
-
+    master:
+      url: jdbc:oracle:thin:@//127.0.0.1:1521/antcloud
+      username: mouzi
+      password: WWJ19950811
+    slave:
+      url: jdbc:oracle:thin:@//127.0.0.1:1521/antcloud
+      username: mouzi
+      password: WWJ19950811
 
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.gree.redis
 
 logging:
   level:
-    com.gree.dao: debug
-  path: classpath:/logs/
-  file: logs.log
+    com.gree.redis.dao:
+      debug
+    com.gree.redis.aspect:
+      debug
+#  path: classpath:/logs/
+#  file: logs.log

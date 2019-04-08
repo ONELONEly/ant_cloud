@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -22,13 +23,14 @@ import org.springframework.util.CollectionUtils;
 @Component//交给Spring管理(在需要缓存的地方自动注入即可使用)
 public class RedisUtil {
 
+
     private final RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
-    public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
-        this.redisTemplate = redisTemplate;
+    public RedisUtil(@Qualifier("defaultObjectRedisTemplate") RedisTemplate<String, Object> defaultRedisTemplate) {
+        this.redisTemplate = defaultRedisTemplate;
     }
-    //=============================common============================
+
     /**
      * 指定缓存失效时间
      * @param key 键
