@@ -9,33 +9,35 @@
         <relativePath>../../spring_cloud</relativePath> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>eureka_server</artifactId>
+    <artifactId>config_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-
-    <name>eureka_server</name>
+    <name>config_server</name>
     <description>Demo project for Spring Boot</description>
 
-    <properties>
-    </properties>
-
     <dependencies>
-        <!--eurekaServer-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-        </dependency>
-
-        <!--spring_boot_test-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-config-server</artifactId>
+        </dependency>
+        <!--spring_eureka_client-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <!--RabbitMq消息队列-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>eureka_server</finalName>
+        <finalName>config_server</finalName>
     </build>
 
 </project>
