@@ -3,9 +3,10 @@ package com.gree.zuul.filter;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,7 +44,6 @@ public class PassWordFilter extends ZuulFilter {
         HttpServletRequest request = ctx.getRequest();
 
         logger.info(" --- > PassWordFilter {},{}",request.getMethod(),request.getRequestURL().toString());
-
         String username = request.getParameter("password");
         if(!"fate".equals(username)){
             ctx.setSendZuulResponse(false); //不对其进行路由
