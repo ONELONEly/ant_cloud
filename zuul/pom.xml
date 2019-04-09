@@ -30,13 +30,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--spring_boot_web-->
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.gree</groupId>
+            <artifactId>common</artifactId>
         </dependency>
+        <!--spring_boot_web-->
     </dependencies>
 
     <build>

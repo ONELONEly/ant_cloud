@@ -6,7 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="common" />
         <module name="config_server" />
+        <module name="data" />
         <module name="eureka_client" />
         <module name="eureka_server" />
         <module name="redis" />

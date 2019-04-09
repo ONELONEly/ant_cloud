@@ -62,12 +62,9 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${spring-swagger.version}</version>
         </dependency>
-
-
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
+            <groupId>com.gree</groupId>
+            <artifactId>common</artifactId>
         </dependency>
     </dependencies>
 
