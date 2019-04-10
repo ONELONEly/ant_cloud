@@ -1,6 +1,5 @@
 package com.gree.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gree.entity.vo.User;
 import com.gree.service.serviceImp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.IOException;
 
 @Controller
 public class UserController {
@@ -28,15 +25,11 @@ public class UserController {
 
     @RequestMapping("/welcome")
     public @ResponseBody
-    User welcome(@RequestParam("usid")String usid) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        User user = mapper.readValue(mapper.writeValueAsString(redisTemplate.opsForValue().get("user::"+usid)),User.class);
-        if(user == null){
-            user = userServiceImp.fetchByUSID(usid);
-            redisTemplate.opsForValue().set("user::"+usid,user);
-        }else{
-            System.out.println(user.getUserName());
-        }
-        return user;
+    User welcome(@RequestParam("usid")String usid){
+//        ObjectMapper mapper = new ObjectMapper();
+//        User user = userServiceImp.fetchByUSID(usid);
+//        redisTemplate.opsForValue().set("root",user);
+//        user = mapper.readValue(mapper.writeValueAsString(redisTemplate.opsForValue().get("root")),User.class);
+        return userServiceImp.fetchByUSID(usid);
     }
 }

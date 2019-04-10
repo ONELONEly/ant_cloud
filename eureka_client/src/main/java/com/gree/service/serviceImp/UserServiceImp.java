@@ -3,6 +3,7 @@ package com.gree.service.serviceImp;
 import com.gree.entity.vo.User;
 import com.gree.dao.UserDAO;
 import com.gree.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -11,23 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImp implements UserService {
 
-//    @Resource
-    private UserDAO userDAO = new UserDAO() {
-        @Override
-        public User fetchByDSPW(String dsca, String pawd) {
-            return null;
-        }
+    private final UserDAO userDAO;
 
-        @Override
-        public User fetchByUSID(String usid) {
-            return null;
-        }
-
-        @Override
-        public void updateByUsid(String usid) {
-
-        }
-    };
+    @Autowired
+    public UserServiceImp(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Override
     @Cacheable(cacheNames = {"user"},key = "#p0")

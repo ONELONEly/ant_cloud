@@ -56,6 +56,19 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>data</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

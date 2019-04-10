@@ -26,17 +26,17 @@ spring:
 
   cloud:
     config:
-      label: master
-      profile: dev
+#      label: master
+#      profile: dev
       discovery:
         enabled: true
         service-id: config-server
-#    bus:
+      name: gree
+      profile: dev
+  #    bus:
 #      enabled: true
 #      trace:
 #        enabled: true
-
-
 
   profiles:
     active: eureka3
@@ -52,6 +52,18 @@ management:
       show-details: always
     refresh:
       enabled: true
+
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+
+logging:
+  level:
+    com.gree.dao:
+      debug
+    com.gree.aspect:
+      debug
 
 ---
 spring:

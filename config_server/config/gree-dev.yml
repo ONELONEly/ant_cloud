@@ -1,0 +1,46 @@
+spring:
+
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    master:
+      url: jdbc:oracle:thin:@//127.0.0.1:1521/antcloud
+      username: mouzi
+      password: WWJ19950811
+    slave:
+      url: jdbc:oracle:thin:@//127.0.0.1:1521/antcloud
+      username: mouzi
+      password: WWJ19950811
+
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: WWJ19950811
+    lettuce:
+      pool:
+        max-active: 32
+        max-wait: 300
+        max-idle: 16
+        min-idle: 8
+
+    timeout: 10ms
+
+  local-redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: WWJ19950811
+    lettuce:
+      pool:
+        max-active: 16
+        max-wait: 100
+        max-idle: 8
+        min-idle: 4
+
+    timeout: 10ms
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.gree
+

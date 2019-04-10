@@ -4,33 +4,20 @@ server:
 spring:
   application:
     name: config-server
+  profiles:
+    active: native #设置为本地配置 默认为git
   cloud:
     config:
       server:
-        git:
-          uri: https://github.com/ONELONEly/spring_cloud_config.git
-          search-paths: spring_cloud_config
+        native:
+          search-locations: ../spring_cloud/config_server/config
+      #        git:
+#          uri: https://github.com/ONELONEly/spring_cloud_config.git
+#          search-paths: spring_cloud_config
 #          username: 180484
 #          passphrase: 960814
-      label: master
-
-  rabbitmq:
-    port: 5672
-    host: 127.0.0.1
-    username: jinyu
-    password: 123456
-
-eureka:
-  client:
-    service-url:
-      default-Zone: http://localhost:8760/eureka/
+#      label: master
 
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-      base-path: /
 
 

@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Properties;
 
 @Configuration
-@MapperScan(basePackages = "com.gree.dao.mapper")
+@MapperScan(basePackages = "com.gree.dao")
 public class MybatisConfig {
 
     @Value("${mybatis.type-aliases-package}")

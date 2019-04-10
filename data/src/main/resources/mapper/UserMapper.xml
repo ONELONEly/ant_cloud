@@ -2,9 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gree.dao.UserDAO">
+
     <resultMap id="userMap" type="com.gree.entity.vo.User">
-        <id property="usid" column="usid" jdbcType="VARCHAR2"/>
-        <result property="userName" column="dsca" jdbcType="VARCHAR2"/>
-        <result property="passWord" column="pawd" jdbcType="VARCHAR2"/>
+        <id property="usid" column="usid" jdbcType="VARCHAR"/>
+        <result property="userName" column="dsca" jdbcType="VARCHAR"/>
+        <result property="passWord" column="pawd" jdbcType="VARCHAR"/>
     </resultMap>
 </mapper>

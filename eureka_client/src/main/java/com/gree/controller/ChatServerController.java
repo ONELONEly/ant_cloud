@@ -19,7 +19,7 @@ public class ChatServerController {
     @Value("${server.port}")
     String port;
 
-    @Value("${content}")
+    @Value("${mybatis.mapper-locations}")
     String content;
 
     @Autowired

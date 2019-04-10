@@ -11,6 +11,8 @@ import org.springframework.data.redis.connection.lettuce.LettuceClientConfigurat
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
@@ -26,20 +28,13 @@ public class RedisAutoConfig {
 
     @Bean
     public RedisTemplate<String, String> defaultRedisTemplate(@Qualifier("defaultLettuceConnectionFactory") LettuceConnectionFactory defaultLettuceConnectionFactory) {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(defaultLettuceConnectionFactory);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
+        return getStringStringRedisTemplate(defaultLettuceConnectionFactory);
     }
 
     @Bean
     public RedisTemplate<String, Object> defaultObjectRedisTemplate(@Qualifier("defaultLettuceConnectionFactory")LettuceConnectionFactory defaultLettuceConnectionFactory) {
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(defaultLettuceConnectionFactory);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
+        return getRedisTemplate(defaultLettuceConnectionFactory);
     }
-
 
 
     @Bean
@@ -52,18 +47,36 @@ public class RedisAutoConfig {
     @Bean
     @ConditionalOnBean(name = "localLettuceConnectionFactory")
     public RedisTemplate<String, String> localRedisTemplate(@Qualifier("localLettuceConnectionFactory")LettuceConnectionFactory localLettuceConnectionFactory) {
-        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(localLettuceConnectionFactory);
-        redisTemplate.afterPropertiesSet();
-        return redisTemplate;
+        return getStringStringRedisTemplate(localLettuceConnectionFactory);
     }
 
     @Bean
     @ConditionalOnBean(name = "localLettuceConnectionFactory")
     public RedisTemplate<String, Object> localObjectRedisTemplate(@Qualifier("localLettuceConnectionFactory")LettuceConnectionFactory localLettuceConnectionFactory) {
-        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(localLettuceConnectionFactory);
+        return getRedisTemplate(localLettuceConnectionFactory);
+    }
+
+    private RedisTemplate<String, String> getStringStringRedisTemplate(@Qualifier("defaultLettuceConnectionFactory") LettuceConnectionFactory defaultLettuceConnectionFactory) {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(defaultLettuceConnectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
         redisTemplate.afterPropertiesSet();
+        redisTemplate.setEnableTransactionSupport(true);
+        return redisTemplate;
+    }
+
+    private RedisTemplate<String, Object> getRedisTemplate(@Qualifier("defaultLettuceConnectionFactory") LettuceConnectionFactory defaultLettuceConnectionFactory) {
+        RedisTemplate<String,Object> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(defaultLettuceConnectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(Object.class));
+        redisTemplate.afterPropertiesSet();
+        redisTemplate.setEnableTransactionSupport(true);
         return redisTemplate;
     }
 }
