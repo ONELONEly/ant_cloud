@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.List;
 
 @ApiModel(value = "user",description = "用户对象.")
 public class User implements Serializable {
@@ -14,6 +15,16 @@ public class User implements Serializable {
     private String userName;
     @ApiModelProperty(value = "密码",name = "passWord",example = "qwe!23")
     private String passWord;
+
+    private List<Role> roles;
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 
     public String getUsid() {
         return usid;

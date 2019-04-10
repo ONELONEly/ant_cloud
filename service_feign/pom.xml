@@ -64,16 +64,21 @@
         </dependency>
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>redis</artifactId>
+            <artifactId>auth</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <finalName>service_feign</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * The type Token filter.
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
  * @Version V 1.0
  */
 public class TokenFilter extends ZuulFilter {
+
     private static Logger log = LoggerFactory.getLogger(TokenFilter.class);
 
     /**
@@ -70,6 +72,9 @@ public class TokenFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+
+        HttpSession session = request.getSession();
+
         log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
         Object accessToken = request.getParameter("token");
         if(accessToken == null) {

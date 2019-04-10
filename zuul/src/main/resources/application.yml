@@ -6,10 +6,23 @@ spring:
   application:
     name: service-zuul
 
+
   http:
     encoding:
       charset: utf-8
       enabled: true
+
+  output:
+    ansi:
+      enabled: always
+
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      name: gree
+      profile: dev
 
 eureka:
   client:

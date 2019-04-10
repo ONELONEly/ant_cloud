@@ -82,7 +82,7 @@ public class MybatisConfig {
 
         DynamicDataSource dataSource = new DynamicDataSource();
         dataSource.setTargetDataSources(targetDataSources);// 该方法是AbstractRoutingDataSource的方法
-        dataSource.setDefaultTargetDataSource(masterDataSource);// 默认的datasource设置为myTestDbDataSource
+        dataSource.setDefaultTargetDataSource(masterDataSource);// 默认的datasource设置
         return dataSource;
     }
 

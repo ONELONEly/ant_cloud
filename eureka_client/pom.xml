@@ -57,22 +57,25 @@
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
 
+
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>auth</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>data</artifactId>
-        </dependency>
+
     </dependencies>
 
     <build>
         <finalName>eureka_client</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <executable>true</executable>
+                </configuration>
+            </plugin>
+        </plugins>
     </build>
 
 </project>

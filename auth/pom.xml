@@ -9,54 +9,50 @@
         <relativePath>../../spring_cloud</relativePath> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>zuul</artifactId>
+    <artifactId>auth</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-
-    <name>zuul</name>
+    <name>auth</name>
     <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <spring.security.version>5.1.5.RELEASE</spring.security.version>
+    </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>
-        <!--Spring-Config-->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-data</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-zuul</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
-        <!--spring_boot_web-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>com.gree</groupId>
             <artifactId>redis</artifactId>
         </dependency>
-        <!--spring_boot_web-->
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>data</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
-        <finalName>zuul</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <executable>true</executable>
-                </configuration>
-            </plugin>
-        </plugins>
+        <finalName>auth</finalName>
     </build>
 
 </project>

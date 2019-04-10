@@ -24,6 +24,7 @@
         <module>./zuul/pom.xml</module>
         <module>./common/pom.xml</module>
         <module>./data/pom.xml</module>
+        <module>./auth/pom.xml</module>
     </modules>
 
     <name>spring_cloud</name>
@@ -79,15 +80,17 @@
                 <artifactId>data</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.gree</groupId>
+                <artifactId>auth</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
             <!-- 资源文件拷贝插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

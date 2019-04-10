@@ -6,6 +6,14 @@ spring:
   application:
     name: service-feign
 
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      name: gree
+      profile: dev
+
 
 feign:
   hystrix:

@@ -6,6 +6,10 @@ spring:
     #服务与服务之间相互调用一般都是根据这个name
     name: client-say-hi
 
+  output:
+    ansi:
+      enabled: always
+
   zipkin:
     sender:
       type: web
@@ -64,6 +68,8 @@ logging:
       debug
     com.gree.aspect:
       debug
+#  path: classpath:/logs/
+#  file: logs.log
 
 ---
 spring:
