@@ -1,7 +1,6 @@
 server:
   port: 8768
 
-
 spring:
   application:
     name: service-zuul
@@ -33,10 +32,37 @@ zuul:
   routes:
     api-a:
       path: /api-a/**
-      serviceId: service-ribbon
+      serviceId: service-feign
     api-b:
       path: /api-b/**
-      serviceId: service-feign
+      serviceId: client-say-hi
+    api-c:
+      path: /api-c/**
+      serviceId: gree-auth
   #zuul默认会丢弃原来的session并且生成新的session，所以有次配置
   sensitive-headers: "*"
+  retryable: false
+
+#  ribbon:
+#    eager-load:
+#      enabled: true
+#
+#  host:
+#    connect-timeout-millis: 3000
+#    socket-timeout-millis: 3000
+
+  add-proxy-headers: true
+  ignored-services: "*"
+
+
+
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:8769/auth/oauth/token
+      user-authorization-uri: http://localhost:8769/auth/oauth/authorize
+      client-id: web
+    resource:
+      user-info-uri:  http://localhost:8769/member
+      prefer-token-info: false
 

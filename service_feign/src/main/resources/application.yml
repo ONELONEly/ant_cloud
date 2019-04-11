@@ -23,4 +23,14 @@ eureka:
     service-url:
       defaultZone: http://server2:8760/eureka/
 
+security:
+  oauth2:
+    client:
+      access-token-uri: http://localhost:8768/auth/oauth/token
+      user-authorization-uri: http://localhost:8768/auth/oauth/authorize
+      client-id: web
+    resource:
+      user-info-uri:  http://localhost:8768/auth/member
+      prefer-token-info: false
+
 

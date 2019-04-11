@@ -9,44 +9,50 @@
         <relativePath>../../spring_cloud</relativePath> <!-- lookup parent from repository -->
     </parent>
 
-    <artifactId>auth</artifactId>
+    <artifactId>security</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>auth</name>
+    <name>security</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
-        <java.version>1.8</java.version>
+        <spring.security.version>4.1.4.RELEASE</spring.security.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>
-        <!--config-client同步configServer的配置-->
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-data</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-config-client</artifactId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
         </dependency>
-        <!--spring_eureka_client-->
+
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>redis</artifactId>
         </dependency>
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>security</artifactId>
+            <artifactId>data</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>auth</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <finalName>security</finalName>
     </build>
 
 </project>

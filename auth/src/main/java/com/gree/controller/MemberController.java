@@ -1,7 +1,7 @@
 package com.gree.controller;
 
-import com.gree.MyUserDetailService;
 import com.gree.result.ResultBody;
+import com.gree.service.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.UUID;
 
 /**
  * 〈会员Controller〉
@@ -34,6 +36,16 @@ public class MemberController {
     public Principal user(Principal member) {
         //获取当前用户信息
         return member;
+    }
+
+    @RequestMapping("/uid")
+    public String uid(HttpSession session) {
+        UUID uid = (UUID) session.getAttribute("uid");
+        if (uid == null) {
+            uid = UUID.randomUUID();
+        }
+        session.setAttribute("uid", uid);
+        return session.getId();
     }
 
     @DeleteMapping(value = "/exit")

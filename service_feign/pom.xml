@@ -41,17 +41,17 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-<!--        &lt;!&ndash;hystrix-dashboard&ndash;&gt;
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        &lt;!&ndash;hystrix-dashboard&ndash;&gt;
+        <!--spring-Security-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
-        </dependency>-->
-        <!--Spring-Test-->
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -64,7 +64,11 @@
         </dependency>
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>auth</artifactId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>redis</artifactId>
         </dependency>
     </dependencies>
 

@@ -56,11 +56,24 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zipkin</artifactId>
         </dependency>
-
+        <!--spring-security-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-oauth2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-security</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>auth</artifactId>
+            <artifactId>data</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>redis</artifactId>
         </dependency>
 
     </dependencies>

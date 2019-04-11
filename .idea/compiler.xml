@@ -13,6 +13,7 @@
         <module name="eureka_client" />
         <module name="eureka_server" />
         <module name="redis" />
+        <module name="security" />
         <module name="service_feign" />
         <module name="service_ribbon" />
         <module name="zuul" />

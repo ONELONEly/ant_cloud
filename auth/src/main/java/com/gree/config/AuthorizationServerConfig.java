@@ -1,12 +1,16 @@
-package com.gree;
+package com.gree.config;
 
+import com.gree.service.MyUserDetailService;
 import com.gree.util.DynamicDataSource;
+import com.gree.util.MssWebResponseExceptionTranslator;
+import com.gree.util.RedisTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,7 +21,6 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -55,21 +58,23 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // clients.withClientDetails(clientDetails());
-        clients.inMemory()
-                .withClient("android")
+//         clients.withClientDetails(clientDetails());
+        clients.inMemory() // 使用in-memory存储
+                .withClient("1") // client_id   android
                 .scopes("read")
-                .secret("android")
-                .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+                .secret(new BCryptPasswordEncoder().encode("1ssss"))  // client_secret   android
+                .authorizedGrantTypes("password", "authorization_code", "refresh_token") // 该client允许的授权类型
                 .and()
-                .withClient("webapp")
+                .withClient("webapp") // client_id
                 .scopes("read")
-                .authorizedGrantTypes("implicit")
+                //.secret("webapp")  // client_secret
+                .authorizedGrantTypes("implicit")// 该client允许的授权类型
                 .and()
                 .withClient("browser")
                 .authorizedGrantTypes("refresh_token", "password")
                 .scopes("read");
     }
+
     @Bean
     public ClientDetailsService clientDetails() {
         return new JdbcClientDetailsService(dataSource);
@@ -87,7 +92,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .authenticationManager(authenticationManager);
         endpoints.tokenServices(defaultTokenServices());
         //认证异常翻译
-        // endpoints.exceptionTranslator(webResponseExceptionTranslator());
+//         endpoints.exceptionTranslator(webResponseExceptionTranslator());
     }
 
     /**

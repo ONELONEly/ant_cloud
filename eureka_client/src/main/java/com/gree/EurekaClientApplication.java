@@ -15,7 +15,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableScheduling
 @Import(value = MybatisConfig.class)
 
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)//开启security注解
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class EurekaClientApplication {

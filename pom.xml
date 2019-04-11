@@ -24,6 +24,7 @@
         <module>./zuul/pom.xml</module>
         <module>./common/pom.xml</module>
         <module>./data/pom.xml</module>
+        <module>./security/pom.xml</module>
         <module>./auth/pom.xml</module>
     </modules>
 
@@ -83,7 +84,7 @@
 
             <dependency>
                 <groupId>com.gree</groupId>
-                <artifactId>auth</artifactId>
+                <artifactId>security</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>

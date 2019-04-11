@@ -16,6 +16,15 @@ public class User implements Serializable {
     @ApiModelProperty(value = "密码",name = "passWord",example = "qwe!23")
     private String passWord;
 
+    public User() {
+    }
+
+    public User(String usid, String userName, String passWord) {
+        this.usid = usid;
+        this.userName = userName;
+        this.passWord = passWord;
+    }
+
     private List<Role> roles;
 
     public List<Role> getRoles() {

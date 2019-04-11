@@ -1,4 +1,4 @@
-package com.gree;
+package com.gree.util;
 
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
