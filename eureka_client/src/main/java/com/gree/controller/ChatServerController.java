@@ -1,5 +1,7 @@
 package com.gree.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.gree.util.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 @RestController
 @RefreshScope //保证refresh之后能够拿到最新的值，不添加的话可能会造成调用缓存的结果
@@ -31,9 +36,25 @@ public class ChatServerController {
         return "Hello!"+name+",I'm from port"+port+",content:"+content;
     }
 
+    @RequestMapping("/uid")
+    public String uid(HttpSession session) {
+        UUID uid = (UUID) session.getAttribute("uid");
+        if (uid == null) {
+            uid = UUID.randomUUID();
+        }
+        session.setAttribute("uid", uid);
+        return session.getId();
+    }
+
     @RequestMapping("/hi")
-    public String sayHi(){
-        return "i'm jinyu mura~";
+    public String sayHi(HttpSession session) {
+        UUID uid = (UUID) session.getAttribute("uid");
+        if (uid == null) {
+            uid = UUID.randomUUID();
+        }
+        session.setAttribute("uid", uid);
+        logger.info("contextData: {}",JSON.toJSONString(UserContext.contextData));
+        return JSON.toJSONString(UserContext.getVersion())+">>>>>>>>>>>>>>>>>..."+uid;
     }
 
     @RequestMapping("/info")

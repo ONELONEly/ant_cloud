@@ -1,12 +1,19 @@
 package com.gree.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.gree.entity.vo.User;
 import com.gree.service.ScheduleService;
+import com.gree.util.UserContext;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
+import java.util.UUID;
 
 /**
  * The type Say hello controller.
@@ -20,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "/",description = "打招呼的接口")
 @RequestMapping("/")
 public class SayHelloController {
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ScheduleService scheduleService;
 
@@ -43,8 +51,19 @@ public class SayHelloController {
             @ApiResponse(code = 200,message = "${obj}",response = String.class)
     })
     public String sayHello(@RequestParam String name){
-        return scheduleService.sayHiFromClientOne(name);
+        return scheduleService.sayHelloFromClientOne(name);
     }/*@ApiParam用于描述该API操作接收的参数类型，value用于描述参数，required指明参数是否为必须,放置于@RequestParam之前*/
+
+    @GetMapping("/hi")
+    public String hi(HttpSession session) {
+        UUID uid = (UUID) session.getAttribute("uid");
+        if (uid == null) {
+            uid = UUID.randomUUID();
+        }
+        session.setAttribute("uid", uid);
+        logger.info("contextData: {},sessionId:{}", JSON.toJSONString(UserContext.contextData),uid);
+        return scheduleService.sayHiFromClientOne();
+    }
 
     @PostMapping("saveUser")
     @ResponseBody

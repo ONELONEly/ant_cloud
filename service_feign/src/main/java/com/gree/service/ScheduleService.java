@@ -11,5 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Component
 public interface ScheduleService {
     @RequestMapping(value = "/sayHello",method = RequestMethod.GET)
-    String sayHiFromClientOne(@RequestParam(value = "name")String name);
+    String sayHelloFromClientOne(@RequestParam(value = "name")String name);
+
+    @RequestMapping(value = "/hi",method = RequestMethod.GET)
+    String sayHiFromClientOne();
 }

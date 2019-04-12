@@ -7,7 +7,12 @@ import org.springframework.stereotype.Component;
 public class ScheduleServiceHystric implements ScheduleService {
 
     @Override
-    public String sayHiFromClientOne(String name) {
+    public String sayHelloFromClientOne(String name) {
         return "Hi!"+name+"!Sorry,Error!";
+    }
+
+    @Override
+    public String sayHiFromClientOne() {
+        return "I'm in error";
     }
 }

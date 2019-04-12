@@ -41,8 +41,12 @@ public class MyUserDetailService implements UserDetailsService {
         List<Role> roles = new ArrayList<>();
         roles.add(role_);
         Permission permission_ = new Permission("http://localhost:8764/sayHello?name=feign");
+        Permission permission_0 = new Permission("hello");
+        Permission permission_1 = new Permission("query");
         List<Permission> permissions = new ArrayList<>();
         permissions.add(permission_);
+        permissions.add(permission_0);
+        permissions.add(permission_1);
         role_.setPermissions(permissions);
         member.setRoles(roles);
         if (member == null) {

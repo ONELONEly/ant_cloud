@@ -41,13 +41,13 @@ public class PassWordFilter extends ZuulFilter {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
 
-        logger.info(" --- > PassWordFilter {},{}",request.getMethod(),request.getRequestURL().toString());
+        logger.info(" --- <> PassWordFilter {},{}",request.getMethod(),request.getRequestURL().toString());
         String username = request.getParameter("password");
         if(!"fate".equals(username)){
             ctx.setSendZuulResponse(false); //不对其进行路由
             ctx.setResponseStatusCode(401);
+            ctx.setResponseBody("username is empty");
             ctx.set("isSuccess",false);
-            return null;
         }else {
             ctx.setSendZuulResponse(true);
             ctx.setResponseStatusCode(200);
