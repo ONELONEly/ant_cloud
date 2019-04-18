@@ -2,13 +2,10 @@ package com.gree.config;
 
 import com.gree.service.MyUserDetailService;
 import com.gree.util.DynamicDataSource;
-import com.gree.util.MssWebResponseExceptionTranslator;
-import com.gree.util.RedisTokenStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -18,9 +15,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
-import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
 @Configuration
 @EnableAuthorizationServer
@@ -28,24 +25,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     private final AuthenticationManager authenticationManager;
 
-
-    private final RedisConnectionFactory redisConnectionFactory;
-
     private final DynamicDataSource dataSource;
 
     private final MyUserDetailService userDetailService;
 
+    private final TokenStore tokenStore;
+
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+
     @Autowired
-    public AuthorizationServerConfig(AuthenticationManager authenticationManager, RedisConnectionFactory redisConnectionFactory, DynamicDataSource dataSource, MyUserDetailService userDetailService) {
+    public AuthorizationServerConfig(AuthenticationManager authenticationManager, DynamicDataSource dataSource, MyUserDetailService userDetailService, TokenStore tokenStore, JwtAccessTokenConverter jwtAccessTokenConverter) {
         this.authenticationManager = authenticationManager;
-        this.redisConnectionFactory = redisConnectionFactory;
         this.dataSource = dataSource;
         this.userDetailService = userDetailService;
-    }
-
-    @Bean
-    public TokenStore tokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+        this.tokenStore = tokenStore;
+        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
     }
 
     @Override
@@ -81,17 +75,12 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         return new JdbcClientDetailsService(dataSource);
     }
 
-    @Bean
-    public WebResponseExceptionTranslator webResponseExceptionTranslator(){
-        return new MssWebResponseExceptionTranslator();
-    }
-
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore())
+        endpoints.tokenStore(tokenStore)
                 .userDetailsService(userDetailService)
-                .authenticationManager(authenticationManager);
-        endpoints.tokenServices(defaultTokenServices());
+                .authenticationManager(authenticationManager)
+                .accessTokenConverter(jwtAccessTokenConverter);
         //认证异常翻译
 //         endpoints.exceptionTranslator(webResponseExceptionTranslator());
     }
@@ -104,7 +93,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public DefaultTokenServices defaultTokenServices(){
         DefaultTokenServices tokenServices = new DefaultTokenServices();
-        tokenServices.setTokenStore(tokenStore());
+        tokenServices.setTokenStore(tokenStore);
         tokenServices.setSupportRefreshToken(true);
         //tokenServices.setClientDetailsService(clientDetails());
         // token有效期自定义设置，默认12小时

@@ -36,7 +36,10 @@ public class MyUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
         logger.info("艺锦欧巴已经进入local");
         com.gree.entity.vo.User member = userDAO.fetchByUSID(memberName);
-        member = new com.gree.entity.vo.User("180484","admin",new BCryptPasswordEncoder().encode("admin"));
+        if (member == null) {
+            throw new UsernameNotFoundException(memberName);
+        }
+        member.setPassWord(new BCryptPasswordEncoder().encode(member.getPassWord()));
         Role role_ = new Role("管理员");
         List<Role> roles = new ArrayList<>();
         roles.add(role_);
@@ -49,9 +52,6 @@ public class MyUserDetailService implements UserDetailsService {
         permissions.add(permission_1);
         role_.setPermissions(permissions);
         member.setRoles(roles);
-        if (member == null) {
-            throw new UsernameNotFoundException(memberName);
-        }
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         // 可用性 :true:可用 false:不可用
         boolean enabled = true;

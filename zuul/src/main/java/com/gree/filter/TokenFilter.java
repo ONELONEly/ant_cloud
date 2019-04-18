@@ -1,13 +1,24 @@
 package com.gree.filter;
 
+import com.alibaba.fastjson.JSON;
+import com.gree.config.HttpAuthenticationManager;
+import com.gree.exception.TokenExpiredException;
+import com.gree.feign.AuthTokenApi;
+import com.gree.result.ResultBody;
+import com.gree.service.RedisService;
+import com.gree.util.UserAuthenticate;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * The type Token filter.
@@ -17,9 +28,22 @@ import javax.servlet.http.HttpSession;
  * @CreateTime 2019 -03-21 10:32:46
  * @Version V 1.0
  */
+
 public class TokenFilter extends ZuulFilter {
 
-    private static Logger log = LoggerFactory.getLogger(TokenFilter.class);
+    private Logger log = LoggerFactory.getLogger(TokenFilter.class);
+
+    private HttpAuthenticationManager httpAuthenticationManager;
+
+    private AuthTokenApi authTokenApi;
+
+    private RedisService redisService;
+
+    public TokenFilter(HttpAuthenticationManager httpAuthenticationManager, AuthTokenApi authTokenApi, RedisService redisService) {
+        this.httpAuthenticationManager = httpAuthenticationManager;
+        this.authTokenApi = authTokenApi;
+        this.redisService = redisService;
+    }
 
     /**
      * @Description
@@ -50,7 +74,7 @@ public class TokenFilter extends ZuulFilter {
     }
 
     /**
-     * @Description 这里可以写逻辑判断，是否要过滤，本文true,永远过滤。
+     * @Description 这里可以写逻辑判断，是否要过滤。
      * @Return
      * @Author 艺锦欧巴【jinyuk@foxmall.com/180484@gree.cn.com】
      * @Date 2019/1/10 16:10
@@ -58,7 +82,8 @@ public class TokenFilter extends ZuulFilter {
      */
     @Override
     public boolean shouldFilter() {
-        return true;
+        RequestContext ctx = RequestContext.getCurrentContext();
+        return (boolean)ctx.get("isSuccess"); // 判断上一个过滤器结果为true，否则就不走下面过滤器，直接跳过后面的所有过滤器并返回 上一个过滤器不通过的结果。
     }
 
     /**
@@ -72,26 +97,41 @@ public class TokenFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-
-        HttpSession session = request.getSession();
-
-        log.info(String.format("%s >>> %s", request.getMethod(), request.getRequestURL().toString()));
-        Object accessToken = request.getParameter("token");
-        if(accessToken == null) {
-            log.warn("token is empty");
+        Map<String, Object> authenticate;
+        UserAuthenticate userAuthenticate = null;
+        String errorMessage = "";
+        try {
+            authenticate = httpAuthenticationManager.authenticate(request);
+            userAuthenticate = getUserAuthenticate(authenticate);
+        }catch (TokenExpiredException e){
+            errorMessage = "请重新完成登录";
+        }
+        if(!StringUtils.isBlank(errorMessage)) {
             ctx.setSendZuulResponse(false); //不对其进行路由
             ctx.setResponseStatusCode(401);
-            ctx.setResponseBody("token is empty");
             ctx.set("isSuccess",false);
-//            try {
-//                ctx.getResponse().getWriter().write("token is empty");
-//            }catch (Exception e){}
-            return null;
+            ctx.setResponseBody(ResultBody.error(errorMessage));
+            ctx.getResponse().setContentType("application/json;charset=utf-8");
         } else {
-            ctx.setSendZuulResponse(true);
-            ctx.setResponseStatusCode(200);
             ctx.set("isSuccess",true);
+            log.info("{}",JSON.toJSONString(userAuthenticate));
+            ctx.addZuulRequestHeader("xUser",JSON.toJSONString(userAuthenticate));
         }
         return null;
+    }
+
+    private UserAuthenticate getUserAuthenticate(Map<String,Object> authenticate){
+        if (authenticate == null){
+            return new UserAuthenticate();
+        }else {
+            return
+                    new UserAuthenticate(authenticate.get("active").toString(), authenticate.get("exp").toString(),
+                            authenticate.get("user_name").toString(), (List<String>) authenticate.get("authorities"),
+                            authenticate.get("client_id").toString(), (List<String>) authenticate.get("scope"));
+        }
+    }
+
+    private List<String> fromSetToList(Set<String> results){
+        return new ArrayList<>(results);
     }
 }

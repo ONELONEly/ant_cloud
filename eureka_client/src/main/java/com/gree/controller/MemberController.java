@@ -1,10 +1,13 @@
 package com.gree.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 import java.util.UUID;
@@ -19,15 +22,13 @@ import java.util.UUID;
 @RequestMapping("/api")
 public class MemberController {
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @GetMapping("hello")
     @PreAuthorize("hasAnyAuthority('hello')")
-    public String hello(HttpSession session) {
-        UUID uid = (UUID) session.getAttribute("uid");
-        if (uid == null) {
-            uid = UUID.randomUUID();
-        }
-        session.setAttribute("uid", uid);
-        return"hello"+session.getId();
+    public String hello(HttpServletRequest request) {
+
+        return"hello"+request.getSession().getId();
     }
 
     @GetMapping("current")

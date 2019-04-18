@@ -2,6 +2,7 @@ package com.gree.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.gree.entity.vo.User;
+import com.gree.service.AuthTokenApi;
 import com.gree.service.ScheduleService;
 import com.gree.util.UserContext;
 import io.swagger.annotations.*;
@@ -30,6 +31,9 @@ public class SayHelloController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final ScheduleService scheduleService;
+
+    @Autowired
+    private AuthTokenApi authTokenApi;
 
     @Autowired
     public SayHelloController(ScheduleService scheduleService) {
@@ -62,6 +66,7 @@ public class SayHelloController {
         }
         session.setAttribute("uid", uid);
         logger.info("contextData: {},sessionId:{}", JSON.toJSONString(UserContext.contextData),uid);
+        authTokenApi.checkToken("9c858595-a25f-4708-b3bb-1a78b065a2d4","/oauth/token");
         return scheduleService.sayHiFromClientOne();
     }
 

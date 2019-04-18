@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: server1
+    active: server2
   application:
     name: eureka_server
 

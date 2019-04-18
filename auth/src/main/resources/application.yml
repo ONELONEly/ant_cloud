@@ -13,6 +13,19 @@ spring:
       name: gree
       profile: dev
 
+yhm:
+  oauth2:
+    token:
+      store:
+        type: authJwt
+
+encrypt:
+  key-store:
+    location: classpath:greeerp.jks
+    secret: gree!23
+    password: gree!23
+    alias: greeerp
+
 eureka:
   client:
     service-url:

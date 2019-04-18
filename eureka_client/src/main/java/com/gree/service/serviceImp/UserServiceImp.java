@@ -21,8 +21,8 @@ public class UserServiceImp implements UserService {
 
     @Override
     @Cacheable(cacheNames = {"user"},key = "#p0")
-    public User fetchByDSPW(String dsca, String pawd) {
-        return userDAO.fetchByDSPW(dsca,pawd);
+    public User fetchByDSPW(String usid, String pawd) {
+        return userDAO.fetchByDSPW(usid,pawd);
     }
 
     @Override

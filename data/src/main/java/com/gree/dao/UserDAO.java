@@ -1,5 +1,6 @@
 package com.gree.dao;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gree.util.DatabaseType;
 import com.gree.util.TargetDataSource;
 import com.gree.entity.vo.User;
@@ -8,12 +9,12 @@ import org.springframework.stereotype.Component;
 
 @Mapper
 @Component
-public interface UserDAO {
+public interface UserDAO extends BaseMapper<User> {
 
-    @Select("select * from cbase000 where dsca = #{dsca} and pawd = #{pawd}")
+    @Select("select * from cbase000 where usid = #{usid} and pawd = #{pawd}")
     @TargetDataSource(DatabaseType.master)
     @ResultMap("userMap")
-    User fetchByDSPW(@Param("dsca")String dsca, @Param("pawd")String pawd);
+    User fetchByDSPW(@Param("usid")String usid, @Param("pawd")String pawd);
 
     @Select("select * from cbase000 where usid = #{usid}")
     @TargetDataSource(DatabaseType.slave)

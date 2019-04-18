@@ -4,6 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ResultBody {
 
     /**
@@ -39,9 +42,16 @@ public class ResultBody {
 
     public static String error(String message) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put(CODE, ResponseInfoEnum.ERROR.getResponseMsg());
+        jsonObject.put(CODE, ResponseInfoEnum.ERROR.getResponseCode());
         jsonObject.put(MESSAGE, message);
         return JSON.toJSONString(jsonObject, SerializerFeature.DisableCircularReferenceDetect);
+    }
+
+    public static Map<String,Object> errorMap(String message) {
+        Map<String,Object> jsonObject = new HashMap<>();
+        jsonObject.put(CODE, ResponseInfoEnum.ERROR.getResponseCode());
+        jsonObject.put(MESSAGE, message);
+        return jsonObject;
     }
 
     public static String error(ResponseInfo response) {

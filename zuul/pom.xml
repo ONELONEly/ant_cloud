@@ -36,6 +36,11 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-security</artifactId>
         </dependency>
+        <!--Spring-openfeign 包含 eureka-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -53,6 +58,10 @@
         <dependency>
             <groupId>com.gree</groupId>
             <artifactId>redis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.gree</groupId>
+            <artifactId>data</artifactId>
         </dependency>
         <!--spring_boot_web-->
     </dependencies>

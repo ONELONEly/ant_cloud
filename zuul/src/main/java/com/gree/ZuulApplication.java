@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.client.SpringCloudApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.session.data.redis.RedisFlushMode;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
@@ -14,6 +15,8 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 //
 // 简化配置，整合了@SpringBootApplication、@EnableDiscoveryClient、@EnableCircuitBreaker
 @SpringCloudApplication
+
+@EnableFeignClients
 
 @EnableOAuth2Sso
 public class ZuulApplication {
