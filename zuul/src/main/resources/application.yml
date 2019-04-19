@@ -58,3 +58,7 @@ security:
       user-info-uri:  http://localhost:8769/member
       prefer-token-info: false
 
+logging:
+  level:
+    com.gree:
+      debug

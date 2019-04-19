@@ -60,8 +60,6 @@ mybatis:
 
 logging:
   level:
-    com.gree.dao:
-      debug
-    com.gree.aspect:
+    com.gree:
       debug
 

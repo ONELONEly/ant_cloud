@@ -52,7 +52,7 @@ public class UserRequestAspect {
         }
 
         // 通用用户信息
-        String userInfo = request.getHeader("x-user");
+        String userInfo = request.getHeader("xUser");
         try {
             if (userInfo != null) {
                 userInfo = URLDecoder.decode(userInfo, "UTF-8");//解码

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gree.dao.UserDAO">
+<mapper namespace="com.gree.mapper.UserMapper">
 
     <resultMap id="userMap" type="com.gree.entity.vo.User">
         <id property="usid" column="usid" jdbcType="VARCHAR"/>
         <result property="userName" column="dsca" jdbcType="VARCHAR"/>
         <result property="passWord" column="pawd" jdbcType="VARCHAR"/>
+        <result property="version" column="version" jdbcType="INTEGER"/>
     </resultMap>
+
+    <select id="queryAllByPage" resultMap="userMap">
+        <bind name="selectStr" value="'%'+pager.selectString+'%'"/>
+        select * from CBASE000 where usid like #{selectStr}
+    </select>
 </mapper>

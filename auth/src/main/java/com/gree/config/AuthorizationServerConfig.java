@@ -1,6 +1,6 @@
 package com.gree.config;
 
-import com.gree.service.MyUserDetailService;
+import com.gree.redisService.MyUserDetailService;
 import com.gree.util.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,11 +1,10 @@
-package com.gree.service;
+package com.gree.redisService;
 
-import com.gree.dao.UserDAO;
 import com.gree.entity.vo.Permission;
 import com.gree.entity.vo.Role;
+import com.gree.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -15,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -25,17 +25,12 @@ public class MyUserDetailService implements UserDetailsService {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private final UserDAO userDAO;
-
-    @Autowired
-    public MyUserDetailService(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
+    @Resource
+    private UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
-        logger.info("艺锦欧巴已经进入local");
-        com.gree.entity.vo.User member = userDAO.fetchByUSID(memberName);
+        com.gree.entity.vo.User member = userMapper.fetchByUSID(memberName);
         if (member == null) {
             throw new UsernameNotFoundException(memberName);
         }
@@ -71,6 +66,7 @@ public class MyUserDetailService implements UserDetailsService {
                 grantedAuthorities.add(authority);
             }
         }
+        logger.info("艺锦欧巴已经结束local");
         return new User(member.getUserName(), member.getPassWord(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
     }
 }

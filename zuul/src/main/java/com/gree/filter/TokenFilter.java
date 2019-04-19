@@ -5,7 +5,7 @@ import com.gree.config.HttpAuthenticationManager;
 import com.gree.exception.TokenExpiredException;
 import com.gree.feign.AuthTokenApi;
 import com.gree.result.ResultBody;
-import com.gree.service.RedisService;
+import com.gree.redisService.RedisService;
 import com.gree.util.UserAuthenticate;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;

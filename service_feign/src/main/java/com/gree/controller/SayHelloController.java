@@ -2,8 +2,10 @@ package com.gree.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.gree.entity.vo.User;
-import com.gree.service.AuthTokenApi;
-import com.gree.service.ScheduleService;
+import com.gree.result.HandleRestResponse;
+import com.gree.result.RestResponse;
+import com.gree.redisService.AuthTokenApi;
+import com.gree.redisService.ScheduleService;
 import com.gree.util.UserContext;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -66,7 +69,10 @@ public class SayHelloController {
         }
         session.setAttribute("uid", uid);
         logger.info("contextData: {},sessionId:{}", JSON.toJSONString(UserContext.contextData),uid);
-        authTokenApi.checkToken("9c858595-a25f-4708-b3bb-1a78b065a2d4","/oauth/token");
+        RestResponse restResponse = authTokenApi.checkToken("9c858595-a25f-4708-b3bb-1a78b065a2d4","/oauth/token");
+        if (restResponse.getErrorResponse() == null){
+            Map user = new HandleRestResponse<Map>().handle(Map.class,restResponse);
+        }
         return scheduleService.sayHiFromClientOne();
     }
 

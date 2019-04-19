@@ -11,31 +11,32 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
 
-@Component
 @Aspect
-public class DatasourceAspect {
+@Component
+@Order(0)
+public class MapperAspect {
 
-    private final static Logger log = LoggerFactory.getLogger(DatasourceAspect.class);
+    private final static Logger log = LoggerFactory.getLogger(MapperAspect.class);
 
     //切换放在mapper接口的方法上，所以这里要配置AOP切面的切入点
 //    @Pointcut("execution( * com.gree.redis.dao..*(..)) || execution( * com.gree.redis.controller.*.*(..))")
-    @Pointcut("execution( * com.gree.dao..*.*(..))")
+    @Pointcut("execution( * com.gree.service..*.*(..))")
     public void dataSourcePointCut() {
     }
 
     @Before("dataSourcePointCut()")
     public void before(JoinPoint joinPoint) {
-        System.out.println("I'm in");
-        log.debug("I'm in");
         Object target = joinPoint.getTarget();
         String method = joinPoint.getSignature().getName();
         Class<?>[] clazz = target.getClass().getInterfaces();
         Class<?>[] parameterTypes = ((MethodSignature) joinPoint.getSignature()).getMethod().getParameterTypes();
         try {
+            log.debug("method:{},{},{}",method,clazz.length,joinPoint.getSignature());
             Method m = clazz[0].getMethod(method, parameterTypes);
             //如果方法上存在切换数据源的注解，则根据注解内容进行数据源切换
             if (m != null && m.isAnnotationPresent(TargetDataSource.class)) {

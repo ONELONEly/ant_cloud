@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Permission implements Serializable {
 
+    private static final long serialVersionUID = 2108124620532175208L;
     private String url;
 
     public Permission() {

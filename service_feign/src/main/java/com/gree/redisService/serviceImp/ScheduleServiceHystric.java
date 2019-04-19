@@ -1,6 +1,6 @@
-package com.gree.service.serviceImp;
+package com.gree.redisService.serviceImp;
 
-import com.gree.service.ScheduleService;
+import com.gree.redisService.ScheduleService;
 import org.springframework.stereotype.Component;
 
 @Component

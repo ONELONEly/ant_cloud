@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Role implements Serializable {
 
+    private static final long serialVersionUID = 5628052144118273339L;
     private String roleName;
     private List<Permission> permissions;
 

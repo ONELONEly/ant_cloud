@@ -1,9 +1,10 @@
 package com.gree.controller;
 
+import com.gree.entity.vo.User;
+import com.gree.result.RestResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class ChatServerControllerTest {
 
@@ -11,7 +12,7 @@ public class ChatServerControllerTest {
 
     @Before
     public void setUp() throws Exception {
-        mvc = MockMvcBuilders.standaloneSetup(new ChatServerController()).build();
+//        mvc = MockMvcBuilders.standaloneSetup(new ChatServerController()).build();
     }
 
     @Test
@@ -20,5 +21,7 @@ public class ChatServerControllerTest {
 //                accept(MediaType.APPLICATION_JSON)).
 //                andExpect(status().isOk()).
 //                andExpect(content().string(equalTo("")));
+        RestResponse restResponse = new RestResponse<>(new User(),null);
+        System.out.println(restResponse.getResult().getClass());
     }
 }

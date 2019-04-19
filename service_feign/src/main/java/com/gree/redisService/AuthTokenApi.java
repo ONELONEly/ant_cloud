@@ -1,11 +1,10 @@
-package com.gree.service;
+package com.gree.redisService;
 
+import com.gree.result.RestResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.Map;
 
 @Component
 @FeignClient(value = "gree-auth")
@@ -17,6 +16,6 @@ public interface AuthTokenApi {
      * @return
      */
     @RequestMapping(value = "/authToken/oauth/check_token")
-    Map<String, Object> checkToken(@RequestParam("token") String value, @RequestParam("path") String path);
+    RestResponse<?> checkToken(@RequestParam("token") String value, @RequestParam("path") String path);
 
 }

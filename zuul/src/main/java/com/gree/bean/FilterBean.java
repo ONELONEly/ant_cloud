@@ -3,12 +3,12 @@ package com.gree.bean;
 import com.gree.config.HttpAuthenticationManager;
 import com.gree.config.HttpAuthenticationManagerConfigurer;
 import com.gree.config.HttpTokenExtractor;
-import com.gree.dao.UserDAO;
 import com.gree.feign.AuthTokenApi;
 import com.gree.filter.ErrorFilter;
 import com.gree.filter.PassWordFilter;
 import com.gree.filter.TokenFilter;
-import com.gree.service.RedisService;
+import com.gree.mapper.UserMapper;
+import com.gree.redisService.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -36,16 +36,16 @@ public class FilterBean {
 
     private final RedisService redisService;
 
-    private final UserDAO userDAO;
+    private final UserMapper userMapper;
 
     private final AuthTokenApi authTokenApi;
 
     @Autowired
-    public FilterBean(HttpAuthenticationManager httpAuthenticationManager, HttpTokenExtractor httpTokenExtractor, RedisService redisService, UserDAO userDAO, AuthTokenApi authTokenApi) {
+    public FilterBean(HttpAuthenticationManager httpAuthenticationManager, HttpTokenExtractor httpTokenExtractor, RedisService redisService, UserMapper userMapper, AuthTokenApi authTokenApi) {
         this.httpAuthenticationManager = httpAuthenticationManager;
         this.httpTokenExtractor = httpTokenExtractor;
         this.redisService = redisService;
-        this.userDAO = userDAO;
+        this.userMapper = userMapper;
         this.authTokenApi = authTokenApi;
     }
 
@@ -74,7 +74,7 @@ public class FilterBean {
      */
     @Bean
     public PassWordFilter passWordFilter(){
-        return new PassWordFilter(httpTokenExtractor,redisService,userDAO,authTokenApi);
+        return new PassWordFilter(httpTokenExtractor,redisService,userMapper,authTokenApi);
     }
 
     @Bean

@@ -17,7 +17,7 @@ public interface AuthTokenApi {
      * @return
      */
     @RequestMapping(value = "/oauth/check_token")
-    Map<String, Object> checkToken(@RequestParam("token") String value,@RequestParam("path") String path);
+    Map<String, Object> checkToken(@RequestParam("token") String value, @RequestParam("path") String path);
 
     /**
      * 获取token信息
