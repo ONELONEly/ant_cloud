@@ -1,7 +1,7 @@
 package com.gree.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.gree.entity.vo.User;
+import com.gree.entity.po.User;
 import com.gree.result.HandleRestResponse;
 import com.gree.result.RestResponse;
 import com.gree.redisService.AuthTokenApi;

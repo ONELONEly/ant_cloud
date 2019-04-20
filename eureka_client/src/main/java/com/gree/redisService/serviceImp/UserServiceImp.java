@@ -1,7 +1,7 @@
 package com.gree.redisService.serviceImp;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gree.entity.vo.User;
+import com.gree.entity.po.User;
 import com.gree.mapper.UserMapper;
 import com.gree.model.MyPage;
 import com.gree.redisService.UserService;

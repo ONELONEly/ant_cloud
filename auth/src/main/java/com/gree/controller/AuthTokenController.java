@@ -1,7 +1,6 @@
 package com.gree.controller;
 
-import com.gree.entity.po.MenuPO;
-import com.gree.entity.po.UserPO;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +32,5 @@ public class AuthTokenController implements AuthTokenApi{
             throw new InvalidTokenException("no permission access!");
         }
         return authentication;
-    }
-
-    @Override
-    public UserPO getTokenInfo(String value) {
-        return null;
-    }
-
-    @Override
-    public List<MenuPO> getMenuInfo(String userName, String clientId) {
-        return null;
     }
 }

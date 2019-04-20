@@ -1,4 +1,4 @@
-package com.gree.entity.vo;
+package com.gree.entity.po;
 
 import java.io.Serializable;
 import java.util.List;

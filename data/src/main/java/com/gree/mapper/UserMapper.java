@@ -1,7 +1,7 @@
 package com.gree.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gree.entity.vo.User;
+import com.gree.entity.po.User;
 import com.gree.model.MyPage;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gree.mapper.UserMapper">
 
-    <resultMap id="userMap" type="com.gree.entity.vo.User">
+    <resultMap id="userMap" type="com.gree.entity.po.User">
         <id property="usid" column="usid" jdbcType="VARCHAR"/>
         <result property="userName" column="dsca" jdbcType="VARCHAR"/>
         <result property="passWord" column="pawd" jdbcType="VARCHAR"/>

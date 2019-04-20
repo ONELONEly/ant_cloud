@@ -4,12 +4,12 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     master:
       url: jdbc:oracle:thin:@//10.2.12.14:1521/ggrdat
-      username: antms
-      password: antms1619
+      username: gant
+      password: gantms1619
     slave:
       url: jdbc:oracle:thin:@//10.2.12.14:1521/ggrdat
-      username: antms
-      password: antms1619
+      username: gant
+      password: gantms1619
 
   http:
     encoding:

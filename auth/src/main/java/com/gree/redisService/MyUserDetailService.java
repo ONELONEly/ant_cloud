@@ -1,7 +1,7 @@
 package com.gree.redisService;
 
-import com.gree.entity.vo.Permission;
-import com.gree.entity.vo.Role;
+import com.gree.entity.po.Permission;
+import com.gree.entity.po.Role;
 import com.gree.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
-        com.gree.entity.vo.User member = userMapper.fetchByUSID(memberName);
+        com.gree.entity.po.User member = userMapper.fetchByUSID(memberName);
         if (member == null) {
             throw new UsernameNotFoundException(memberName);
         }

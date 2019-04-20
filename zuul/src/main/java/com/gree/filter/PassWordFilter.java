@@ -1,7 +1,7 @@
 package com.gree.filter;
 
 import com.gree.config.HttpTokenExtractor;
-import com.gree.entity.vo.User;
+import com.gree.entity.po.User;
 import com.gree.exception.KellyException;
 import com.gree.feign.AuthTokenApi;
 import com.gree.mapper.UserMapper;

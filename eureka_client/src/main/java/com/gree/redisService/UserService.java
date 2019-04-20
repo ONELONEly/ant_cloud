@@ -1,7 +1,7 @@
 package com.gree.redisService;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gree.entity.vo.User;
+import com.gree.entity.po.User;
 import com.gree.model.MyPage;
 import com.gree.util.DatabaseType;
 import com.gree.util.TargetDataSource;
