@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.gree.config.HttpAuthenticationManager;
 import com.gree.exception.TokenExpiredException;
 import com.gree.feign.AuthTokenApi;
-import com.gree.result.ResultBody;
+import com.gree.result.RestErrorResponse;
+import com.gree.result.RestResponse;
 import com.gree.redisService.RedisService;
 import com.gree.util.UserAuthenticate;
 import com.netflix.zuul.ZuulFilter;
@@ -110,7 +111,7 @@ public class TokenFilter extends ZuulFilter {
             ctx.setSendZuulResponse(false); //不对其进行路由
             ctx.setResponseStatusCode(401);
             ctx.set("isSuccess",false);
-            ctx.setResponseBody(ResultBody.error(errorMessage));
+            ctx.setResponseBody(new RestResponse<>().errorJson("500",errorMessage,new RestErrorResponse()));
             ctx.getResponse().setContentType("application/json;charset=utf-8");
         } else {
             ctx.set("isSuccess",true);

@@ -19,7 +19,7 @@ public class RestErrorResponse implements Serializable {
      * @Description 异常码
      * @CreateTime 2019 -04-18 19:21:06
      */
-    private Integer errorCode;
+    private String errorCode;
     /**
      * @Description 异常信息
      * @CreateTime 2019 -04-18 19:21:06
@@ -44,7 +44,7 @@ public class RestErrorResponse implements Serializable {
     public RestErrorResponse() {
     }
 
-    public RestErrorResponse(Integer errorCode, String errorMsg, StackTraceElement[] errorStackTrace, Date errorDate, String errorType) {
+    public RestErrorResponse(String errorCode, String errorMsg, StackTraceElement[] errorStackTrace, Date errorDate, String errorType) {
         this.errorCode = errorCode;
         this.errorMsg = errorMsg;
         this.errorStackTrace = errorStackTrace;
@@ -52,11 +52,11 @@ public class RestErrorResponse implements Serializable {
         this.errorType = errorType;
     }
 
-    public Integer getErrorCode() {
+    public String getErrorCode() {
         return errorCode;
     }
 
-    public void setErrorCode(Integer errorCode) {
+    public void setErrorCode(String errorCode) {
         this.errorCode = errorCode;
     }
 

@@ -1,7 +1,5 @@
 package com.gree.controller;
 
-import com.gree.entity.vo.User;
-import com.gree.result.RestResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.test.web.servlet.MockMvc;
@@ -21,7 +19,5 @@ public class ChatServerControllerTest {
 //                accept(MediaType.APPLICATION_JSON)).
 //                andExpect(status().isOk()).
 //                andExpect(content().string(equalTo("")));
-        RestResponse restResponse = new RestResponse<>(new User(),null);
-        System.out.println(restResponse.getResult().getClass());
     }
 }

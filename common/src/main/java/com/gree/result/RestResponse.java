@@ -1,5 +1,7 @@
 package com.gree.result;
 
+import com.alibaba.fastjson.JSON;
+
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -21,10 +23,22 @@ public class RestResponse<T> implements Serializable {
     private String restId = UUID.randomUUID().toString();
 
     /**
+     * @Description 返回码
+     * @CreateTime 2019 -04-18 19:21:06
+     */
+    private String code;
+
+    /**
+     * @Description 返回信息
+     * @CreateTime 2019 -04-18 19:21:06
+     */
+    private String msg;
+
+    /**
      * @Description 返回结果
      * @CreateTime 2019 -04-18 19:21:06
      */
-    private T result;
+    private T data;
 
     /**
      * @Description
@@ -35,13 +49,15 @@ public class RestResponse<T> implements Serializable {
     public RestResponse() {
     }
 
-    public RestResponse(T result, RestErrorResponse errorResponse) {
-        this.result = result;
+    private RestResponse(String code, String msg, T result, RestErrorResponse errorResponse) {
+        this.code = code;
+        this.msg = msg;
+        this.data = result;
         this.errorResponse = errorResponse;
     }
 
-    public T getResult() {
-        return result;
+    public T getData() {
+        return data;
     }
 
     public RestErrorResponse getErrorResponse() {
@@ -51,4 +67,37 @@ public class RestResponse<T> implements Serializable {
     public String getRestId() {
         return restId;
     }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public RestResponse<T> error(ResponseInfoEnum responseInfoEnum, RestErrorResponse errorResponse){
+        return error(responseInfoEnum.getResponseCode(),responseInfoEnum.getResponseMsg(),errorResponse);
+    }
+
+    public RestResponse<T> error(String errorCode,String errorMsg,RestErrorResponse errorResponse){
+        return new RestResponse<>(errorCode,errorMsg,null,errorResponse);
+    }
+
+    public RestResponse<T> success(T result){
+        return new RestResponse<>("200","请求成功",result,null);
+    }
+
+    public String successJson(T result){
+        return JSON.toJSONString(success(result));
+    }
+
+    public String errorJson(ResponseInfoEnum responseInfoEnum, RestErrorResponse errorResponse){
+        return JSON.toJSONString(error(responseInfoEnum,errorResponse));
+    }
+
+    public String errorJson(String errorCode,String errorMsg,RestErrorResponse errorResponse){
+        return JSON.toJSONString(error(errorCode,errorMsg,errorResponse));
+    }
+
 }

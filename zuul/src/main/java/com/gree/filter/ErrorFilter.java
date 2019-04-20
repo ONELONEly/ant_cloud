@@ -1,8 +1,8 @@
 package com.gree.filter;
 
-import com.alibaba.fastjson.JSON;
 import com.gree.exception.KellyException;
 import com.gree.result.RestErrorResponse;
+import com.gree.result.RestResponse;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
@@ -34,25 +34,24 @@ public class ErrorFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext rc = RequestContext.getCurrentContext();
         Throwable throwable = rc.getThrowable();
-        RestErrorResponse restErrorResponse = getResponseInfo(throwable);
         rc.remove("throwable");
-        rc.setResponseBody(JSON.toJSONString(restErrorResponse));
+        rc.setResponseBody(getResponseInfo(throwable));
         rc.getResponse().setContentType("application/json;charset=utf-8");
         return null;
     }
 
-    private RestErrorResponse getResponseInfo(Throwable exception){
-        RestErrorResponse resultVO;
+    private String getResponseInfo(Throwable exception){
         Throwable error = getKellyException(exception,0,5);
+        RestErrorResponse errorResponse;
         if(error instanceof KellyException){
             KellyException kellyException = (KellyException)error;
-            resultVO = new RestErrorResponse(kellyException.getCode(),kellyException.getMessage(),kellyException.getStackTrace(),new Date(),kellyException.getName());
+            errorResponse = new RestErrorResponse(kellyException.getCode(),kellyException.getMessage(),kellyException.getStackTrace(),new Date(),kellyException.getName());
         }else{
             logger.debug("error:{},{},{}",error,error.getCause(),error.getMessage());
             String msg = error.getCause() == null ? error.getMessage() : error.getCause().getMessage();
-            resultVO = new RestErrorResponse(500,msg,error.getStackTrace(),new Date(), error.getClass().getName());
+            errorResponse = new RestErrorResponse("500",msg,error.getStackTrace(),new Date(), error.getClass().getName());
         }
-        return resultVO;
+        return new RestResponse<>().errorJson(errorResponse.getErrorCode(),errorResponse.getErrorMsg(),errorResponse);
     }
 
     private Throwable getKellyException(Throwable error,Integer now,Integer max){

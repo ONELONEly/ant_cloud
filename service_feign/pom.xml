@@ -64,7 +64,7 @@
         </dependency>
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>common</artifactId>
+            <artifactId>data</artifactId>
         </dependency>
         <dependency>
             <groupId>com.gree</groupId>

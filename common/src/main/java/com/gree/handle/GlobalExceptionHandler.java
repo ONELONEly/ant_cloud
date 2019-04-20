@@ -18,13 +18,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
-    public RestResponse<String> handle(Exception e) {
+    public RestResponse handle(Exception e) {
+        RestErrorResponse errorResponse;
         if (e instanceof KellyException) {
             KellyException kellyException = (KellyException)e;
-            return new RestResponse<>("",new RestErrorResponse(kellyException.getCode(),kellyException.getMessage(),kellyException.getStackTrace(),new Date(),kellyException.getClass().getName()));
+            errorResponse = new RestErrorResponse(kellyException.getCode(),kellyException.getMessage(),kellyException.getStackTrace(),new Date(),kellyException.getClass().getName());
         } else {
-            log.error("【系统异常】{}", e.getMessage());
-            return new RestResponse<>("",new RestErrorResponse(500,e.getCause() == null ? e.getMessage():e.getCause().getMessage(),e.getStackTrace(),new Date(),e.getClass().getName()));
+            errorResponse = new RestErrorResponse("500",e.getCause() == null ? e.getMessage():e.getCause().getMessage(),e.getStackTrace(),new Date(),e.getClass().getName());
         }
+        log.error("【系统异常】{}", e.getMessage());
+        return new RestResponse<>().error(errorResponse.getErrorCode(),errorResponse.getErrorMsg(),errorResponse);
     }
 }

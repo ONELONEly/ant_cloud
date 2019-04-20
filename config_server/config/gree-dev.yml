@@ -3,13 +3,21 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: oracle.jdbc.driver.OracleDriver
     master:
-      url: jdbc:oracle:thin:@//127.0.0.1:1521/antcloud
-      username: mouzi
-      password: WWJ19950811
+      url: jdbc:oracle:thin:@//10.2.12.14:1521/ggrdat
+      username: antms
+      password: antms1619
     slave:
-      url: jdbc:oracle:thin:@//127.0.0.1:1521/antcloud
-      username: mouzi
-      password: WWJ19950811
+      url: jdbc:oracle:thin:@//10.2.12.14:1521/ggrdat
+      username: antms
+      password: antms1619
+
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  banner:
+    charset: UTF-8
 
   redis:
     database: 0

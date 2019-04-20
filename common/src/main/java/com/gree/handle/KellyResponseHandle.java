@@ -25,9 +25,13 @@ public class KellyResponseHandle implements ResponseBodyAdvice<Object> {
     //// 对于返回的对象如果不是最终对象ResponseResult，则选包装一下
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
-        logger.debug("content:{}", JSON.toJSONString(o));
+        logger.debug("返回结果：{}", JSON.toJSONString(o));
+        serverHttpResponse.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         if(!(o instanceof RestResponse)){
-            return new RestResponse<>(o,null);
+            if(o instanceof String){ //如果返回的o为空，或许也需要做同样的方式处理
+                return new RestResponse<>().successJson(o);
+            }
+            return new RestResponse<>().success(o);
         }
         return o;
     }

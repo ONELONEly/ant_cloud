@@ -1,5 +1,6 @@
 package com.gree.result;
 
+import com.alibaba.fastjson.JSON;
 import com.gree.exception.KellyException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +18,16 @@ public class HandleRestResponse<T> implements Serializable {
 
     @SuppressWarnings("unchecked")
     public T handle(Class<T> eleType,RestResponse<?> restResponse){
+        logger.debug("rest:{}", JSON.toJSONString(restResponse));
         RestErrorResponse errorResponse = restResponse.getErrorResponse();
         if(errorResponse != null) {
             throw new KellyException(errorResponse.getErrorMsg(), errorResponse.getErrorCode(), errorResponse.getErrorDate(), errorResponse.getErrorType());
-        }else if(restResponse.getResult().getClass() != eleType){
-            logger.debug("classType:{}",restResponse.getResult().getClass());
+        }else if(restResponse.getData() == null){
+            throw new KellyException(ResponseInfoEnum.EMPTY_RESULT,new Date(),"KellyException");
+        }else if(restResponse.getData().getClass() != eleType){
+            logger.debug("classType:{}",restResponse.getData().getClass());
             throw new KellyException(ResponseInfoEnum.JSON_CONVERT_ERROR,new Date(),"KellyException");
         }
-        return (T)restResponse.getResult();
+        return (T)restResponse.getData();
     }
 }

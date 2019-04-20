@@ -8,7 +8,7 @@ import java.util.Date;
 public class KellyException extends RuntimeException{
 
     private static final long serialVersionUID = 9184940296110274987L;
-    private Integer code;
+    private String code;
     private Date date;
     private String name;
 
@@ -20,25 +20,25 @@ public class KellyException extends RuntimeException{
         this.name = name;
     }
 
-    public KellyException(String msg,Integer code,Date date,String name){
+    public KellyException(String msg,String code,Date date,String name){
         super(msg);
         this.code = code;
         this.date = date;
         this.name = name;
     }
 
-    public KellyException(String message, Throwable cause, Integer code,Date date,String name) {
+    public KellyException(String message, Throwable cause, String code,Date date,String name) {
         super(message, cause);
         this.code = code;
         this.date = date;
         this.name = name;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

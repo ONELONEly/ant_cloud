@@ -5,9 +5,7 @@ import com.gree.entity.vo.User;
 import com.gree.exception.KellyException;
 import com.gree.feign.AuthTokenApi;
 import com.gree.mapper.UserMapper;
-import com.gree.result.HandleRestResponse;
-import com.gree.result.ResponseInfoEnum;
-import com.gree.result.ResultBody;
+import com.gree.result.*;
 import com.gree.redisService.RedisService;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
@@ -81,19 +79,20 @@ public class PassWordFilter extends ZuulFilter {
                 String client_secret = loginMsg.get("client_secret");
                 User user = userMapper.fetchByDSPW(username, password);
                 if (user != null) {
+                    logger.debug("username:{},password:{},client_id:{},client_secret:{}",username,password,client_id,client_secret);
                     tokenMap = new HandleRestResponse<LinkedHashMap>().handle(LinkedHashMap.class,authTokenApi.getToken("password", username, password, client_id, client_secret));
                     redisService.set(username, tokenMap, 30 * 24 * 60);
                     ctx.addZuulRequestHeader("access_token",tokenMap.get("access_token").toString());
                     ctx.setSendZuulResponse(false); //不对其进行路由
                     ctx.setResponseStatusCode(200);
-                    ctx.setResponseBody(ResultBody.success(tokenMap.get("access_token")));
+                    ctx.setResponseBody(new RestResponse<>().successJson(tokenMap.get("access_token")));
                 } else {
                     throw new KellyException(ResponseInfoEnum.NONE_USER,new Date(),"KellyException");
                 }
             } else {
                 ctx.setSendZuulResponse(false); //不对其进行路由
                 ctx.setResponseStatusCode(401);
-                ctx.setResponseBody(ResultBody.error("请检查登录信息"));
+                ctx.setResponseBody(new RestResponse<>().errorJson(ResponseInfoEnum.EMPTY_USER_MSG,new RestErrorResponse()));
             }
             ctx.set("isSuccess", false);
             ctx.getResponse().setContentType("application/json;charset=utf-8");

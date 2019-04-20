@@ -15,6 +15,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * The type Filter bean.
  *
@@ -36,16 +38,16 @@ public class FilterBean {
 
     private final RedisService redisService;
 
-    private final UserMapper userMapper;
+    @Resource
+    private UserMapper userMapper;
 
     private final AuthTokenApi authTokenApi;
 
     @Autowired
-    public FilterBean(HttpAuthenticationManager httpAuthenticationManager, HttpTokenExtractor httpTokenExtractor, RedisService redisService, UserMapper userMapper, AuthTokenApi authTokenApi) {
+    public FilterBean(HttpAuthenticationManager httpAuthenticationManager, HttpTokenExtractor httpTokenExtractor, RedisService redisService,AuthTokenApi authTokenApi) {
         this.httpAuthenticationManager = httpAuthenticationManager;
         this.httpTokenExtractor = httpTokenExtractor;
         this.redisService = redisService;
-        this.userMapper = userMapper;
         this.authTokenApi = authTokenApi;
     }
 

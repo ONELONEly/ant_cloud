@@ -20,7 +20,7 @@ public interface ResponseInfo {
      * @CreateTime 2019 -04-09 17:19:09
      * @Version V 1.0
      */
-    Integer getResponseCode();
+    String getResponseCode();
 
     /**
      * Response msg string.

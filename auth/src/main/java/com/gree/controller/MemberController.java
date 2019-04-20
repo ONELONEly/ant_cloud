@@ -1,7 +1,5 @@
 package com.gree.controller;
 
-import com.gree.result.RestResponse;
-import com.gree.result.ResultBody;
 import com.gree.redisService.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
@@ -32,18 +30,18 @@ public class MemberController {
     }
 
     @GetMapping("/member")
-    public RestResponse<Principal> user(Principal member) {
+    public Principal user(Principal member) {
         //获取当前用户信息
-        return new RestResponse<>(member,null);
+        return member;
     }
 
     @DeleteMapping(value = "/exit")
-    public RestResponse<String> revokeToken(String access_token) {
+    public String revokeToken(String access_token) {
         //注销当前用户
         if (consumerTokenServices.revokeToken(access_token)) {
-            return new RestResponse<>(ResultBody.success("注销成功"),null);
+            return "注销成功";
         } else {
-            return new RestResponse<>(ResultBody.error("注销失败"),null);
+            return "注销失败";
         }
     }
 }

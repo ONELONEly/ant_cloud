@@ -37,7 +37,7 @@ public class DefaultHttpTokenExtractor implements HttpTokenExtractor{
             Map result = extractJsonMsg(request);
             if (result == null) {
                 token = request.getParameter(AuthConstants.TOKEN_PARAM);
-                if (token == null || token.length() != 36) {
+                if (token == null || token.length() != 658) { //36
                     token = null;
                 }
             }else{
