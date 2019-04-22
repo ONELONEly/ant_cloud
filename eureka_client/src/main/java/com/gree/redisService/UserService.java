@@ -1,25 +1,25 @@
 package com.gree.redisService;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.gree.entity.po.User;
+import com.gree.entity.po.UserPO;
 import com.gree.model.MyPage;
 import com.gree.util.DatabaseType;
 import com.gree.util.TargetDataSource;
 
-public interface UserService extends IService<User> {
+public interface UserService extends IService<UserPO> {
 
     @TargetDataSource(DatabaseType.master)
-    User fetchByDSPW(String dsca, String pawd);
+    UserPO fetchByDSPW(String dsca, String pawd);
 
     @TargetDataSource(DatabaseType.master)
-    User fetchByUSID(String usid);
+    UserPO fetchByUSID(String usid);
 
     @TargetDataSource(DatabaseType.slave)
-    void updateByUsid(User user);
+    void updateByUsid(UserPO userPO);
 
     @TargetDataSource(DatabaseType.slave)
     Integer deleteByusid(String usid);
 
     @TargetDataSource(DatabaseType.master)
-    MyPage<User> queryAllByPage(MyPage<User> pager);
+    MyPage<UserPO> queryAllByPage(MyPage<UserPO> pager);
 }

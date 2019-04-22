@@ -1,25 +1,25 @@
 package com.gree.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gree.entity.po.User;
+import com.gree.entity.po.UserPO;
 import com.gree.model.MyPage;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
-public interface UserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<UserPO> {
 
     @Select("select * from cbase000 where usid = #{usid} and pawd = #{pawd}")
     @ResultMap("userMap")
-    User fetchByDSPW(@Param("usid")String usid, @Param("pawd")String pawd);
+    UserPO fetchByDSPW(@Param("usid")String usid, @Param("pawd")String pawd);
 
     @Select("select * from cbase000 where usid = #{usid}")
     @ResultMap("userMap")
-    User fetchByUSID(@Param("usid")String usid);
+    UserPO fetchByUSID(@Param("usid")String usid);
 
     @Update("update cbase000 set dsca = #{user.userName} where usid = #{user.usid}")
-    void updateByUsid(@Param("user")User user);
+    void updateByUsid(@Param("user") UserPO userPO);
 
-    MyPage<User> queryAllByPage(@Param("pager")MyPage<User> pager);
+    MyPage<UserPO> queryAllByPage(@Param("pager")MyPage<UserPO> pager);
 }

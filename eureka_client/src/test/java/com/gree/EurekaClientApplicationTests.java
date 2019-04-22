@@ -1,7 +1,7 @@
 package com.gree;
 
 import com.alibaba.fastjson.JSON;
-import com.gree.entity.po.User;
+import com.gree.entity.po.UserPO;
 import com.gree.model.MyPage;
 import com.gree.redisService.UserService;
 import org.junit.Test;
@@ -25,13 +25,13 @@ public class EurekaClientApplicationTests {
 
     @Test
     public void contextLoads() {
-        MyPage<User> pager = new MyPage<>(1,10);
+        MyPage<UserPO> pager = new MyPage<>(1,10);
         pager.setSelectInt(180484);
         pager.setSelectString("180284");
-        User user = userService.queryAllByPage(pager).getRecords().get(0);
-        logger.debug("{}", JSON.toJSONString(user));
-        userService.updateById(user);
-        User update = userService.queryAllByPage(pager).getRecords().get(0);
+        UserPO userPO = userService.queryAllByPage(pager).getRecords().get(0);
+        logger.debug("{}", JSON.toJSONString(userPO));
+        userService.updateById(userPO);
+        UserPO update = userService.queryAllByPage(pager).getRecords().get(0);
         System.out.println(update.getVersion().intValue());
     }
 

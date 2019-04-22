@@ -1,7 +1,7 @@
 package com.gree.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.gree.entity.po.User;
+import com.gree.entity.po.UserPO;
 import com.gree.result.HandleRestResponse;
 import com.gree.result.RestResponse;
 import com.gree.redisService.AuthTokenApi;
@@ -80,8 +80,8 @@ public class SayHelloController {
     @ResponseBody
     @ApiModelProperty(value = "user",notes = "用户信息的Json串")
     @ApiOperation(value = "新增用户",notes = "返回添加的用户信息")
-    public ResponseEntity<Object> saveUser(@RequestBody User user){
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseEntity<Object> saveUser(@RequestBody UserPO userPO){
+        return new ResponseEntity<>(userPO, HttpStatus.OK);
     }
 
 

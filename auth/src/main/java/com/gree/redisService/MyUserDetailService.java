@@ -1,7 +1,8 @@
 package com.gree.redisService;
 
-import com.gree.entity.po.Permission;
-import com.gree.entity.po.Role;
+import com.gree.entity.po.PermissionPO;
+import com.gree.entity.po.RolePO;
+import com.gree.entity.po.UserPO;
 import com.gree.mapper.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,23 +31,23 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
-        com.gree.entity.po.User member = userMapper.fetchByUSID(memberName);
+        UserPO member = userMapper.fetchByUSID(memberName);
         if (member == null) {
             throw new UsernameNotFoundException(memberName);
         }
-        member.setPassWord(new BCryptPasswordEncoder().encode(member.getPassWord()));
-        Role role_ = new Role("管理员");
-        List<Role> roles = new ArrayList<>();
-        roles.add(role_);
-        Permission permission_ = new Permission("http://localhost:8764/sayHello?name=feign");
-        Permission permission_0 = new Permission("hello");
-        Permission permission_1 = new Permission("query");
-        List<Permission> permissions = new ArrayList<>();
-        permissions.add(permission_);
-        permissions.add(permission_0);
-        permissions.add(permission_1);
-        role_.setPermissions(permissions);
-        member.setRoles(roles);
+        member.setDeac(new BCryptPasswordEncoder().encode(member.getDeac()));
+        RolePO role_PO_ = new RolePO("管理员");
+        List<RolePO> rolePOS = new ArrayList<>();
+        rolePOS.add(role_PO_);
+        PermissionPO permission_PO_ = new PermissionPO("http://localhost:8764/sayHello?name=feign");
+        PermissionPO permission_PO_0 = new PermissionPO("hello");
+        PermissionPO permission_PO_1 = new PermissionPO("query");
+        List<PermissionPO> permissionPOS = new ArrayList<>();
+        permissionPOS.add(permission_PO_);
+        permissionPOS.add(permission_PO_0);
+        permissionPOS.add(permission_PO_1);
+        role_PO_.setPermissionPOS(permissionPOS);
+        member.setRolePOS(rolePOS);
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         // 可用性 :true:可用 false:不可用
         boolean enabled = true;
@@ -56,18 +57,18 @@ public class MyUserDetailService implements UserDetailsService {
         boolean credentialsNonExpired = true;
         // 锁定性 :true:未锁定 false:已锁定
         boolean accountNonLocked = true;
-        for (Role role : member.getRoles()) {
+        for (RolePO rolePO : member.getRolePOS()) {
             //角色必须是ROLE_开头，可以在数据库中设置
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getRoleName());
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(rolePO.getDsca());
             grantedAuthorities.add(grantedAuthority);
             //获取权限
-            for (Permission permission : role.getPermissions()) {
-                GrantedAuthority authority = new SimpleGrantedAuthority(permission.getUrl());
+            for (PermissionPO permissionPO : rolePO.getPermissionPOS()) {
+                GrantedAuthority authority = new SimpleGrantedAuthority(permissionPO.getDsca());
                 grantedAuthorities.add(authority);
             }
         }
         logger.info("艺锦欧巴已经结束local");
-        return new User(member.getUserName(), member.getPassWord(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
+        return new User(member.getDeac(), member.getPawd(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
     }
 }
 

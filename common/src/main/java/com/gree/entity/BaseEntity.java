@@ -10,17 +10,7 @@ import java.io.Serializable;
  * BO bussines objevt 业务对象
  * PO 持久化对象，与数据库的数据结构一一形成对应
  */
-public class SuperEntity implements Serializable {
+public class BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
-    private Long id;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

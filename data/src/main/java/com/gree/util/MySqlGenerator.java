@@ -10,11 +10,11 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class MySqlGenerator {
+
+    private static String MODULE = "GANT";
 
     /**
      * <p>
@@ -40,65 +40,73 @@ public class MySqlGenerator {
      */
     public static void main(String[] args) {
         // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
+        String[] tables = {"CBASE002","CBASE007","MATERIAL","MC_RC_ACCESSORY","MT_ACCESSORY","MT_RC_DETAIL","MT_RECEIVE","ST_ACCESSORY","ST_DETAIL","STORAGE","VARIETY","VENDER","ACCESSORY_LOG"};
 
-        // 全局配置
-        GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/data/src/main/java");
-        gc.setAuthor("jinyu");
-        gc.setOpen(false);
-        mpg.setGlobalConfig(gc);
+        Set<String> tableLists = new HashSet<>(Arrays.asList(tables));
 
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/ant?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("1q2w3e4r");
-        mpg.setDataSource(dsc);
+        for (String table:tableLists) {
+            AutoGenerator mpg = new AutoGenerator();
 
-        // 包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.gree.generator");
-        mpg.setPackageInfo(pc);
+            // 全局配置
+            GlobalConfig gc = new GlobalConfig();
+            String projectPath = System.getProperty("user.dir");
+            gc.setOutputDir(projectPath + "/data/src/main/java");
+            gc.setAuthor("jinyu");
+            gc.setOpen(false);
+            mpg.setGlobalConfig(gc);
 
-        // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
-        List<FileOutConfig> focList = new ArrayList<>();
-        focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输入文件名称
-                return projectPath + "/data/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-            }
-        });
-        cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
-        mpg.setTemplate(new TemplateConfig().setXml(null));
+            // 数据源配置
+            DataSourceConfig dsc = new DataSourceConfig();
+            dsc.setUrl("jdbc:oracle:thin:@//10.2.12.14:1521/ggrdat");
+            // dsc.setSchemaName("public");
+            dsc.setDriverName("oracle.jdbc.driver.OracleDriver");
+            dsc.setUsername("gant");
+            dsc.setPassword("gantms1619");
+            mpg.setDataSource(dsc);
 
-        // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("com.gree.generator.common.BaseEntity");
-        strategy.setEntityLombokModel(true);
-        strategy.setSuperControllerClass("com.gree.generator.common.BaseController");
-        strategy.setInclude(scanner("表名"));
-        strategy.setSuperEntityColumns("id");
-        strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-        mpg.setStrategy(strategy);
-        // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+            // 包配置
+            PackageConfig pc = new PackageConfig();
+//        pc.setModuleName(scanner("模块名"));
+            pc.setModuleName(MODULE);
+            pc.setParent("com.gree.generator");
+            mpg.setPackageInfo(pc);
+
+            // 自定义配置
+            InjectionConfig cfg = new InjectionConfig() {
+                @Override
+                public void initMap() {
+                    // to do nothing
+                }
+            };
+            List<FileOutConfig> focList = new ArrayList<>();
+            focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
+                @Override
+                public String outputFile(TableInfo tableInfo) {
+                    // 自定义输入文件名称
+                    return projectPath + "/data/src/main/resources/mapper/" + pc.getModuleName()
+                            + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                }
+            });
+            cfg.setFileOutConfigList(focList);
+            mpg.setCfg(cfg);
+            mpg.setTemplate(new TemplateConfig().setXml(null));
+
+            // 策略配置
+            StrategyConfig strategy = new StrategyConfig();
+            strategy.setNaming(NamingStrategy.underline_to_camel);
+            strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+            strategy.setSuperEntityClass("com.gree.entity.BaseEntity");
+            strategy.setEntityLombokModel(true);
+//            strategy.setSuperControllerClass("com.gree.generator.common.BaseController");
+//            strategy.setInclude(scanner("表名"));
+            strategy.setInclude(table);
+            strategy.setSuperEntityColumns("id");
+            strategy.setControllerMappingHyphenStyle(true);
+            strategy.setTablePrefix(pc.getModuleName() + "_");
+            mpg.setStrategy(strategy);
+            // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
+            mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+            mpg.execute();
+        }
     }
 }

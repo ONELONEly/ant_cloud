@@ -1,7 +1,7 @@
 package com.gree.filter;
 
 import com.gree.config.HttpTokenExtractor;
-import com.gree.entity.po.User;
+import com.gree.entity.po.UserPO;
 import com.gree.exception.KellyException;
 import com.gree.feign.AuthTokenApi;
 import com.gree.mapper.UserMapper;
@@ -77,8 +77,8 @@ public class PassWordFilter extends ZuulFilter {
                 String password = loginMsg.get("password");
                 String client_id = loginMsg.get("client_id");
                 String client_secret = loginMsg.get("client_secret");
-                User user = userMapper.fetchByDSPW(username, password);
-                if (user != null) {
+                UserPO userPO = userMapper.fetchByDSPW(username, password);
+                if (userPO != null) {
                     logger.debug("username:{},password:{},client_id:{},client_secret:{}",username,password,client_id,client_secret);
                     tokenMap = new HandleRestResponse<LinkedHashMap>().handle(LinkedHashMap.class,authTokenApi.getToken("password", username, password, client_id, client_secret));
                     redisService.set(username, tokenMap, 30 * 24 * 60);
