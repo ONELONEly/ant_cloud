@@ -31,7 +31,7 @@ public class StAccessoryPO extends BaseEntity {
     /**
      * 入库资源编号
      */
-    @TableId(value = "ST_ACCESSORY_GUID",type = IdType.INPUT)
+    @TableId(value = "ST_ACCESSORY_GUID",type = IdType.ID_WORKER_STR)
     private String stAccessoryGuid;
 
     /**
@@ -63,7 +63,7 @@ public class StAccessoryPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

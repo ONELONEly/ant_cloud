@@ -1,6 +1,8 @@
 package com.gree.config;
 
+import com.baomidou.mybatisplus.core.injector.ISqlInjector;
 import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
+import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
@@ -46,7 +48,7 @@ public class MybatisPlusConfig {
 
     /**
      * @return TODO
-     * @description TODO
+     * @description Sql性能分析插件，输出Sql语句以及所需时间
      * @author create by jinyuk@foxmail.com(180365@gree.com.cn).
      * @version 1.0
      * @createTime 2019 -04-22 14:53:29
@@ -54,5 +56,17 @@ public class MybatisPlusConfig {
     @Bean
     public PerformanceInterceptor performanceInterceptor(){
         return new PerformanceInterceptor();
+    }
+
+    /**
+     * @return TODO
+     * @description sql注入器 逻辑删除插件
+     * @author create by jinyuk@foxmail.com(180365@gree.com.cn).
+     * @version 1.0
+     * @createTime 2019 -04-23 15:58:35
+     */
+    @Bean
+    public ISqlInjector iSqlInjector(){
+        return new LogicSqlInjector();
     }
 }

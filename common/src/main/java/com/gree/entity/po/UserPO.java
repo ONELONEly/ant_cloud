@@ -163,7 +163,7 @@ public class UserPO extends BaseEntity {
      * 版本
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
     private List<RolePO> rolePOS;
 

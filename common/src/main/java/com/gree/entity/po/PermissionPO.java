@@ -52,7 +52,7 @@ public class PermissionPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
     public PermissionPO(String dsca) {
         this.dsca = dsca;

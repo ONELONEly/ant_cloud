@@ -54,7 +54,7 @@ public class RolePO extends BaseEntity {
      * 版本
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
     private List<PermissionPO> permissionPOS;
 

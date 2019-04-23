@@ -32,7 +32,7 @@ public class McRcAccessoryPO extends BaseEntity {
     /**
      * 物料领用附件编号
      */
-    @TableId(value = "MC_RC_ACCESSORY_ID",type = IdType.INPUT)
+    @TableId(value = "MC_RC_ACCESSORY_ID",type = IdType.ID_WORKER_STR)
     private String mcRcAccessoryId;
 
     /**
@@ -64,7 +64,7 @@ public class McRcAccessoryPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

@@ -30,7 +30,7 @@ public class StDetailPO extends BaseEntity {
     /**
      * 入库主表
      */
-    @TableId(value = "STORAGE_GUID",type = IdType.INPUT)
+    @TableId(value = "STORAGE_GUID",type = IdType.ID_WORKER_STR)
     private String storageGuid;
 
     /**
@@ -43,7 +43,7 @@ public class StDetailPO extends BaseEntity {
      * 物料加库存数量
      */
     @TableField("ST_DETAIL_COUNT")
-    private Double stDetailCount;
+    private Integer stDetailCount;
 
     /**
      * 入库明细单号
@@ -68,7 +68,7 @@ public class StDetailPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

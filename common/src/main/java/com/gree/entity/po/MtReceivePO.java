@@ -30,7 +30,7 @@ public class MtReceivePO extends BaseEntity {
     /**
      * 物料单号
      */
-    @TableId(value = "RECEIVE_GUID",type = IdType.INPUT)
+    @TableId(value = "RECEIVE_GUID",type = IdType.ID_WORKER_STR)
     private String receiveGuid;
 
     /**
@@ -113,7 +113,7 @@ public class MtReceivePO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

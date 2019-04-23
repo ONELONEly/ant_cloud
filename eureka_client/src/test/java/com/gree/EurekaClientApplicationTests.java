@@ -1,9 +1,8 @@
 package com.gree;
 
-import com.alibaba.fastjson.JSON;
-import com.gree.entity.po.UserPO;
-import com.gree.model.MyPage;
+import com.gree.entity.po.MaterialPO;
 import com.gree.redisService.UserService;
+import com.gree.service.impl.MaterialServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -21,18 +21,21 @@ public class EurekaClientApplicationTests {
 
 
     @Resource
-    private UserService userService;
+    private MaterialServiceImpl materialService;
 
     @Test
     public void contextLoads() {
-        MyPage<UserPO> pager = new MyPage<>(1,10);
-        pager.setSelectInt(180484);
-        pager.setSelectString("180284");
-        UserPO userPO = userService.queryAllByPage(pager).getRecords().get(0);
-        logger.debug("{}", JSON.toJSONString(userPO));
-        userService.updateById(userPO);
-        UserPO update = userService.queryAllByPage(pager).getRecords().get(0);
-        System.out.println(update.getVersion().intValue());
+//        MyPage<UserPO> pager = new MyPage<>(1,10);
+//        pager.setSelectInt(180484);
+//        pager.setSelectString("180284");
+//        UserPO userPO = userService.queryAllByPage(pager).getRecords().get(0);
+//        logger.debug("{}", JSON.toJSONString(userPO));
+//        userService.updateById(userPO);
+//        UserPO update = userService.queryAllByPage(pager).getRecords().get(0);
+//        System.out.println(update.getVersion().intValue());
+        MaterialPO material = new MaterialPO("锦遇",100,1,1,"180484");
+//        material.setMaterialGuid("12345666756767");
+        materialService.save(material);
     }
 
 }

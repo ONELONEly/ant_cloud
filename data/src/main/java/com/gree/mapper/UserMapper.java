@@ -3,10 +3,7 @@ package com.gree.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gree.entity.po.UserPO;
 import com.gree.model.MyPage;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.ResultMap;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 public interface UserMapper extends BaseMapper<UserPO> {
 

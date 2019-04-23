@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import com.gree.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("MATERIAL")
-@KeySequence("SEQ_material")
+@NoArgsConstructor
 public class MaterialPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -30,7 +32,7 @@ public class MaterialPO extends BaseEntity {
     /**
      * 物料ID
      */
-    @TableId(value = "MATERIAL_GUID",type = IdType.INPUT)
+    @TableId(value = "MATERIAL_GUID",type = IdType.ID_WORKER_STR)
     private String materialGuid;
 
     /**
@@ -43,18 +45,18 @@ public class MaterialPO extends BaseEntity {
      * 库存数量
      */
     @TableField("MT_VENDER_COUNT")
-    private Double mtVenderCount;
+    private Integer mtVenderCount;
 
     /**
      * 种类ID
      */
     @TableField("VARIETY_ID")
-    private Double varietyId;
+    private Integer varietyId;
 
     /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 
@@ -62,7 +64,7 @@ public class MaterialPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
     /**
      * 最后修改用户
@@ -70,5 +72,11 @@ public class MaterialPO extends BaseEntity {
     @TableField("MODIFY_USER")
     private String modifyUser;
 
-
+    public MaterialPO(String materialName, Integer mtVenderCount, Integer varietyId, Integer version, String modifyUser) {
+        this.materialName = materialName;
+        this.mtVenderCount = mtVenderCount;
+        this.varietyId = varietyId;
+        this.version = version;
+        this.modifyUser = modifyUser;
+    }
 }

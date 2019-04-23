@@ -30,7 +30,7 @@ public class StoragePO extends BaseEntity {
     /**
      * 入库单号
      */
-    @TableId(value = "STORAGE_GUID",type = IdType.INPUT)
+    @TableId(value = "STORAGE_GUID",type = IdType.ID_WORKER_STR)
     private String storageGuid;
 
     /**
@@ -43,7 +43,7 @@ public class StoragePO extends BaseEntity {
      * 厂家编号
      */
     @TableField("VENDER_ID")
-    private Double venderId;
+    private Integer venderId;
 
     /**
      * 联系方式
@@ -87,7 +87,7 @@ public class StoragePO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

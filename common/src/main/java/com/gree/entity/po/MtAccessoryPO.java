@@ -31,7 +31,7 @@ public class MtAccessoryPO extends BaseEntity {
     /**
      * 附件号码
      */
-    @TableId(value = "MT_ACCESSORY_GUID",type = IdType.INPUT)
+    @TableId(value = "MT_ACCESSORY_GUID",type = IdType.ID_WORKER_STR)
     private String mtAccessoryGuid;
 
     /**
@@ -63,7 +63,7 @@ public class MtAccessoryPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

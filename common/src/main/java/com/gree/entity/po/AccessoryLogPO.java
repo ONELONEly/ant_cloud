@@ -21,7 +21,6 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("ACCESSORY_LOG")
-@KeySequence("SEQ_accessoryLog")
 public class AccessoryLogPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +28,7 @@ public class AccessoryLogPO extends BaseEntity {
     /**
      * 附件日志ID
      */
-    @TableId(value = "AL_GUID",type = IdType.INPUT)
+    @TableId(value = "AL_GUID",type = IdType.ID_WORKER_STR)
     private String alGuid;
 
     /**
@@ -48,7 +47,7 @@ public class AccessoryLogPO extends BaseEntity {
      * 附件大小
      */
     @TableField("ACCESSORY_SIZE")
-    private Double accessorySize;
+    private Integer accessorySize;
 
     /**
      * 附件类型
@@ -72,7 +71,7 @@ public class AccessoryLogPO extends BaseEntity {
      * 记录版本
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

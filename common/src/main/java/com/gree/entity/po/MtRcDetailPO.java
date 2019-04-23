@@ -30,7 +30,7 @@ public class MtRcDetailPO extends BaseEntity {
     /**
      * 物料明细单号
      */
-    @TableId(value = "MT_RC_DETAIL_GUID",type = IdType.INPUT)
+    @TableId(value = "MT_RC_DETAIL_GUID",type = IdType.ID_WORKER_STR)
     private String mtRcDetailGuid;
 
     /**
@@ -55,7 +55,7 @@ public class MtRcDetailPO extends BaseEntity {
      * 物料领用数量
      */
     @TableField("MT_RECEIVE_COUNT")
-    private Double mtReceiveCount;
+    private Integer mtReceiveCount;
 
     /**
      * 计数单位->eg:个,张,台
@@ -80,7 +80,7 @@ public class MtRcDetailPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }

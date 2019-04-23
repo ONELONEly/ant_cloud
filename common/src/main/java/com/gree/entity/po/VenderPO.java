@@ -1,9 +1,9 @@
 package com.gree.entity.po;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import com.gree.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("VENDER")
+@KeySequence(value = "SEQ_material",clazz = Integer.class)
 public class VenderPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -29,7 +30,7 @@ public class VenderPO extends BaseEntity {
     /**
      * 厂家编号
      */
-    @TableId("VENDER_GUID")
+    @TableId(value = "VENDER_GUID",type = IdType.INPUT)
     private String venderGuid;
 
     /**
@@ -55,7 +56,7 @@ public class VenderPO extends BaseEntity {
      * 版本号
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
 
 }
