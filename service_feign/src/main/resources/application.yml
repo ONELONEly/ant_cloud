@@ -26,11 +26,11 @@ eureka:
 security:
   oauth2:
     client:
-      access-token-uri: http://localhost:8768/auth/oauth/token
-      user-authorization-uri: http://localhost:8768/auth/oauth/authorize
+      access-token-uri: http://localhost:8769/auth/oauth/token
+      user-authorization-uri: http://localhost:8769/auth/oauth/authorize
       client-id: web
     resource:
-      user-info-uri:  http://localhost:8768/auth/member
+      user-info-uri:  http://localhost:8769/member
       prefer-token-info: false
 
 

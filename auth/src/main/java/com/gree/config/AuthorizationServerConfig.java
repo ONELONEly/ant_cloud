@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -34,6 +36,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     private final JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     public AuthorizationServerConfig(AuthenticationManager authenticationManager, DynamicDataSource dataSource, MyUserDetailService userDetailService, TokenStore tokenStore, JwtAccessTokenConverter jwtAccessTokenConverter) {
         this.authenticationManager = authenticationManager;
         this.dataSource = dataSource;
@@ -54,20 +59,14 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 //         clients.withClientDetails(clientDetails());
+        String result = "{bcrypt}" + new BCryptPasswordEncoder().encode("jkRose");
+        String noopResult = "{noop}"+"jkRose";
         clients.inMemory() // 使用in-memory存储
-                .withClient("1") // client_id   android
+                .withClient("jk")
                 .scopes("read")
-                .secret(new BCryptPasswordEncoder().encode("1ssss"))  // client_secret   android
+                .secret(noopResult)
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token") // 该client允许的授权类型
-                .and()
-                .withClient("webapp") // client_id
-                .scopes("read")
-                //.secret("webapp")  // client_secret
-                .authorizedGrantTypes("implicit")// 该client允许的授权类型
-                .and()
-                .withClient("browser")
-                .authorizedGrantTypes("refresh_token", "password")
-                .scopes("read");
+                ;
     }
 
     @Bean

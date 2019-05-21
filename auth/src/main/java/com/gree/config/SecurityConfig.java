@@ -15,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -35,7 +36,7 @@ import javax.annotation.Resource;
 @Configuration
 @EnableWebSecurity
 @Order(2)
-@Import({TokenStoreConfiguration.class,SecurityHandlerConfiguration.class})
+@Import({TokenStoreConfiguration.class,SecurityHandlerConfiguration.class,DefaultPasswordConfiguration.class})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -51,16 +52,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private LogoutHandler oauthLogoutHandler;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     private final MyUserDetailService userDetailService;
 
     @Autowired
     public SecurityConfig(MyUserDetailService userDetailService) {
         this.userDetailService = userDetailService;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     //配置不需要拦截的资源
@@ -101,7 +100,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailService).passwordEncoder(passwordEncoder);
     }
 
     /**

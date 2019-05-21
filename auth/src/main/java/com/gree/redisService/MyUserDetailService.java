@@ -31,6 +31,7 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String memberName) throws UsernameNotFoundException {
+        logger.info("艺锦欧巴已经进入local{}",memberName);
         UserPO member = userMapper.fetchByUSID(memberName);
         if (member == null) {
             throw new UsernameNotFoundException(memberName);
