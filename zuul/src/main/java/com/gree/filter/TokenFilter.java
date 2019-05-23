@@ -36,14 +36,8 @@ public class TokenFilter extends ZuulFilter {
 
     private HttpAuthenticationManager httpAuthenticationManager;
 
-    private AuthTokenApi authTokenApi;
-
-    private RedisService redisService;
-
-    public TokenFilter(HttpAuthenticationManager httpAuthenticationManager, AuthTokenApi authTokenApi, RedisService redisService) {
+    public TokenFilter(HttpAuthenticationManager httpAuthenticationManager) {
         this.httpAuthenticationManager = httpAuthenticationManager;
-        this.authTokenApi = authTokenApi;
-        this.redisService = redisService;
     }
 
     /**
@@ -98,25 +92,25 @@ public class TokenFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        String url = request.getRequestURI();
         Map<String, Object> authenticate;
         UserAuthenticate userAuthenticate = null;
         String errorMessage = "";
         try {
             authenticate = httpAuthenticationManager.authenticate(request);
             userAuthenticate = getUserAuthenticate(authenticate);
-        }catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             errorMessage = "请重新完成登录";
         }
-        if(!StringUtils.isBlank(errorMessage)) {
+        if (!StringUtils.isBlank(errorMessage)) {
             ctx.setSendZuulResponse(false); //不对其进行路由
             ctx.setResponseStatusCode(401);
-            ctx.set("isSuccess",false);
-            ctx.setResponseBody(new RestResponse<>().errorJson("500",errorMessage,new RestErrorResponse()));
+            ctx.set("isSuccess", false);
+            ctx.setResponseBody(new RestResponse<>().errorJson("500", errorMessage, new RestErrorResponse()));
             ctx.getResponse().setContentType("application/json;charset=utf-8");
         } else {
-            ctx.set("isSuccess",true);
-            log.info("{}",JSON.toJSONString(userAuthenticate));
-            ctx.addZuulRequestHeader("xUser",JSON.toJSONString(userAuthenticate));
+            ctx.set("isSuccess", true);
+            ctx.addZuulRequestHeader("xUser", JSON.toJSONString(userAuthenticate));
         }
         return null;
     }
@@ -130,9 +124,5 @@ public class TokenFilter extends ZuulFilter {
                             authenticate.get("user_name").toString(), (List<String>) authenticate.get("authorities"),
                             authenticate.get("client_id").toString(), (List<String>) authenticate.get("scope"));
         }
-    }
-
-    private List<String> fromSetToList(Set<String> results){
-        return new ArrayList<>(results);
     }
 }

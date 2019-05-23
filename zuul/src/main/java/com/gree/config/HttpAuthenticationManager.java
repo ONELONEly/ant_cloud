@@ -9,4 +9,6 @@ public interface HttpAuthenticationManager {
 
 
     Map<String, Object> authenticate(HttpServletRequest request);
+
+    Boolean isIgnoreUrl(String url);
 }

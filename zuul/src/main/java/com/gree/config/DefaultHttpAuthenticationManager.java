@@ -4,6 +4,7 @@ import com.gree.exception.TokenExpiredException;
 import com.gree.feign.AuthTokenApi;
 import com.gree.result.HandleRestResponse;
 import com.gree.util.AuthConstants;
+import com.gree.util.HttpTokenExtractor;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,7 @@ public class DefaultHttpAuthenticationManager implements HttpAuthenticationManag
         String uri = request.getRequestURI();
         //判断是否为不过滤访问路径
         if(IsIgnoreUrl(uri)){
-            return new HashMap<>();
+            return null;
         }
         //提取token
         String token = extractor.extract(request);
@@ -44,9 +45,14 @@ public class DefaultHttpAuthenticationManager implements HttpAuthenticationManag
         }
         //超级token判断
         if(AuthConstants.SUPER_TOKEN.equals(token)){
-            return new HashMap<>();
+            return null;
         }
         return new HandleRestResponse<LinkedHashMap>().handle(LinkedHashMap.class,authTokenApi.checkToken(token,uri));
+    }
+
+    @Override
+    public Boolean isIgnoreUrl(String url) {
+        return IsIgnoreUrl(url);
     }
 
     public boolean IsIgnoreUrl(String path) {

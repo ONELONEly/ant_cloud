@@ -16,16 +16,16 @@
 
     <modules>
         <module>./config_server/pom.xml</module>
-        <module>./eureka_client/pom.xml</module>
+        <module>./userService/pom.xml</module>
         <module>./eureka_server/pom.xml</module>
         <module>./redis/pom.xml</module>
-        <module>./service_feign/pom.xml</module>
-        <module>./service_ribbon/pom.xml</module>
+        <module>./userService_feign/pom.xml</module>
         <module>./zuul/pom.xml</module>
         <module>./common/pom.xml</module>
         <module>./data/pom.xml</module>
         <module>./security/pom.xml</module>
         <module>./auth/pom.xml</module>
+        <module>./feign/pom.xml</module>
     </modules>
 
     <name>spring_cloud</name>
@@ -92,6 +92,12 @@
             <dependency>
                 <groupId>com.gree</groupId>
                 <artifactId>security</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.gree</groupId>
+                <artifactId>feign</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
         </dependencies>

@@ -1,23 +1,18 @@
 package com.gree.filter;
 
-import com.gree.config.HttpTokenExtractor;
-import com.gree.entity.po.UserPO;
-import com.gree.exception.KellyException;
-import com.gree.feign.AuthTokenApi;
-import com.gree.mapper.UserMapper;
+import com.gree.config.HttpAuthenticationManager;
 import com.gree.result.*;
-import com.gree.redisService.RedisService;
+import com.gree.util.HttpTokenExtractor;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 /**
  * The type Pass word filter.
@@ -33,19 +28,13 @@ public class PassWordFilter extends ZuulFilter {
 
     private HttpTokenExtractor httpTokenExtractor;
 
-    private RedisService redisService;
-
-    private UserMapper userMapper;
-
-    private AuthTokenApi authTokenApi;
+    private HttpAuthenticationManager httpAuthenticationManager;
 
 
 
-    public PassWordFilter(HttpTokenExtractor httpTokenExtractor, RedisService redisService, UserMapper userMapper, AuthTokenApi authTokenApi) {
+    public PassWordFilter(HttpAuthenticationManager httpAuthenticationManager,HttpTokenExtractor httpTokenExtractor) {
         this.httpTokenExtractor = httpTokenExtractor;
-        this.redisService = redisService;
-        this.userMapper = userMapper;
-        this.authTokenApi = authTokenApi;
+        this.httpAuthenticationManager = httpAuthenticationManager;
     }
 
     @Override
@@ -67,35 +56,19 @@ public class PassWordFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
+        String url = request.getRequestURI();
         String token = httpTokenExtractor.extract(request);
+        logger.info("url:{}",url);
         if(StringUtils.isBlank(token)) {
-            Map<String, String> loginMsg = httpTokenExtractor.extractLoginMessage(request);
-            Map tokenMap;
-            String username;
-            if (loginMsg != null) {
-                username = loginMsg.get("username");
-                String password = loginMsg.get("password");
-                String client_id = loginMsg.get("client_id");
-                String client_secret = loginMsg.get("client_secret");
-                UserPO userPO = userMapper.fetchByDSPW(username, password);
-                if (userPO != null) {
-                    logger.debug("username:{},password:{},client_id:{},client_secret:{}",username,password,client_id,client_secret);
-                    tokenMap = new HandleRestResponse<LinkedHashMap>().handle(LinkedHashMap.class,authTokenApi.getToken("password", username, password, client_id, client_secret));
-                    redisService.set(username, tokenMap, 30 * 24 * 60);
-                    ctx.addZuulRequestHeader("access_token",tokenMap.get("access_token").toString());
-                    ctx.setSendZuulResponse(false); //不对其进行路由
-                    ctx.setResponseStatusCode(200);
-                    ctx.setResponseBody(new RestResponse<>().successJson(tokenMap.get("access_token")));
-                } else {
-                    throw new KellyException(ResponseInfoEnum.NONE_USER,new Date(),"KellyException");
-                }
+            if(httpAuthenticationManager.isIgnoreUrl(url)){
+                ctx.set("isSuccess", true);
             } else {
+                ctx.set("isSuccess", false);
                 ctx.setSendZuulResponse(false); //不对其进行路由
                 ctx.setResponseStatusCode(401);
                 ctx.setResponseBody(new RestResponse<>().errorJson(ResponseInfoEnum.EMPTY_USER_MSG,new RestErrorResponse()));
+                ctx.getResponse().setContentType("application/json;charset=utf-8");
             }
-            ctx.set("isSuccess", false);
-            ctx.getResponse().setContentType("application/json;charset=utf-8");
         }else {
             ctx.set("isSuccess", true);
         }

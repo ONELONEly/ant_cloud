@@ -2,20 +2,17 @@ package com.gree.bean;
 
 import com.gree.config.HttpAuthenticationManager;
 import com.gree.config.HttpAuthenticationManagerConfigurer;
-import com.gree.config.HttpTokenExtractor;
 import com.gree.feign.AuthTokenApi;
 import com.gree.filter.ErrorFilter;
 import com.gree.filter.PassWordFilter;
 import com.gree.filter.TokenFilter;
-import com.gree.mapper.UserMapper;
 import com.gree.redisService.RedisService;
+import com.gree.util.HttpTokenExtractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.Resource;
 
 /**
  * The type Filter bean.
@@ -38,9 +35,6 @@ public class FilterBean {
 
     private final RedisService redisService;
 
-    @Resource
-    private UserMapper userMapper;
-
     private final AuthTokenApi authTokenApi;
 
     @Autowired
@@ -62,7 +56,7 @@ public class FilterBean {
      */
     @Bean
     public TokenFilter tokenFilter(){
-        return new TokenFilter(httpAuthenticationManager,authTokenApi,redisService);
+        return new TokenFilter(httpAuthenticationManager);
     }
 
     /**
@@ -76,7 +70,7 @@ public class FilterBean {
      */
     @Bean
     public PassWordFilter passWordFilter(){
-        return new PassWordFilter(httpTokenExtractor,redisService,userMapper,authTokenApi);
+        return new PassWordFilter(httpAuthenticationManager,httpTokenExtractor);
     }
 
     @Bean

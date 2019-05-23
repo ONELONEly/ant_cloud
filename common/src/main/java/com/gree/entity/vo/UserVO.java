@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 @ApiModel(value = "user",description = "用户对象.")
 public class UserVO implements Serializable {
@@ -18,6 +19,8 @@ public class UserVO implements Serializable {
     @ApiModelProperty(value = "密码",name = "passWord",example = "qwe!23")
     private String passWord;
 
+    private HashMap<String,String> requestJson;
+
     public UserVO() {
     }
 
@@ -25,6 +28,14 @@ public class UserVO implements Serializable {
         this.userId = userId;
         this.userName = userName;
         this.passWord = passWord;
+    }
+
+    public HashMap<String, String> getRequestJson() {
+        return requestJson;
+    }
+
+    public void setRequestJson(HashMap<String, String> requestJson) {
+        this.requestJson = requestJson;
     }
 
     public String getUserId() {

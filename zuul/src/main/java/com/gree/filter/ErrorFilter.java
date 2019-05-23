@@ -35,23 +35,25 @@ public class ErrorFilter extends ZuulFilter {
         RequestContext rc = RequestContext.getCurrentContext();
         Throwable throwable = rc.getThrowable();
         rc.remove("throwable");
-        rc.setResponseBody(getResponseInfo(throwable));
+        RestErrorResponse errorResponse = getResponseInfo(throwable);
+        String errorMsg = new RestResponse<>().errorJson(errorResponse.getErrorCode(),errorResponse.getErrorMsg(),errorResponse);
+        rc.setResponseBody(errorMsg);
+        rc.setResponseStatusCode(Integer.parseInt(errorResponse.getErrorCode()));
         rc.getResponse().setContentType("application/json;charset=utf-8");
         return null;
     }
 
-    private String getResponseInfo(Throwable exception){
+    private RestErrorResponse getResponseInfo(Throwable exception){
         Throwable error = getKellyException(exception,0,5);
         RestErrorResponse errorResponse;
         if(error instanceof KellyException){
             KellyException kellyException = (KellyException)error;
             errorResponse = new RestErrorResponse(kellyException.getCode(),kellyException.getMessage(),kellyException.getStackTrace(),new Date(),kellyException.getName());
         }else{
-            logger.debug("error:{},{},{}",error,error.getCause(),error.getMessage());
             String msg = error.getCause() == null ? error.getMessage() : error.getCause().getMessage();
             errorResponse = new RestErrorResponse("500",msg,error.getStackTrace(),new Date(), error.getClass().getName());
         }
-        return new RestResponse<>().errorJson(errorResponse.getErrorCode(),errorResponse.getErrorMsg(),errorResponse);
+        return errorResponse;
     }
 
     private Throwable getKellyException(Throwable error,Integer now,Integer max){

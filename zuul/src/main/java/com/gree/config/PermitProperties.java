@@ -18,7 +18,8 @@ public class PermitProperties {
             "/swagger-ui.html",
             "/swagger-resources/**",
             "/webjars/**",
-            "/druid/**"
+            "/druid/**",
+            "/user/login"
     };
 
     /**

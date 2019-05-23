@@ -5,8 +5,8 @@
 
     <resultMap id="userMap" type="com.gree.entity.po.UserPO">
         <id property="usid" column="usid" jdbcType="VARCHAR"/>
-        <result property="userName" column="dsca" jdbcType="VARCHAR"/>
-        <result property="passWord" column="pawd" jdbcType="VARCHAR"/>
+        <result property="name" column="dsca" jdbcType="VARCHAR"/>
+        <result property="pawd" column="pawd" jdbcType="VARCHAR"/>
         <result property="version" column="version" jdbcType="INTEGER"/>
     </resultMap>
 

@@ -31,7 +31,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableAspectJAutoProxy(exposeProxy = true) //通过再次代理调用（AopContext.currentProxy().getXXX），前提要开启暴露
 
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
-@MapperScan("com.gree.mapper")
+@MapperScan("com.gree.mapper") // 扫描mapper地址
 public class ZuulApplication {
 
     public static void main(String[] args) {
