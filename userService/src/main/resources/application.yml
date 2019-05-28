@@ -1,7 +1,7 @@
 spring:
   application:
     #服务与服务之间相互调用一般都是根据这个name
-    name: client-say-hi
+    name: user-service
 
   output:
     ansi:

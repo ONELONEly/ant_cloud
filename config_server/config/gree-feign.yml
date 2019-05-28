@@ -1,0 +1,37 @@
+spring:
+  http:
+    encoding:
+      charset: UTF-8
+      force: true
+      enabled: true
+  banner:
+    charset: UTF-8
+
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: WWJ19950811
+    lettuce:
+      pool:
+        max-active: 32
+        max-wait: 3004
+        max-idle: 16
+        min-idle: 8
+
+    timeout: 10ms
+
+  local-redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    password: WWJ19950811
+    lettuce:
+      pool:
+        max-active: 16
+        max-wait: 100
+        max-idle: 8
+        min-idle: 4
+
+    timeout: 10ms
+

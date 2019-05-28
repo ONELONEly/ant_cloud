@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.gree.entity.BaseEntity;
+import com.gree.entity.dto.UserDto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

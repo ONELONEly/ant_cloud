@@ -53,18 +53,20 @@
         </dependency>
         <dependency>
             <groupId>com.gree</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
             <artifactId>redis</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>data</artifactId>
         </dependency>
         <!--spring_boot_web-->
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>20.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <finalName>zuul</finalName>

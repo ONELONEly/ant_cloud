@@ -34,10 +34,7 @@ zuul:
       path: /user/**
       serviceId: service-feign
     api-b:
-      path: /api-b/**
-      serviceId: client-say-hi
-    api-c:
-      path: /api-c/**
+      path: /auth/**
       serviceId: gree-auth
   #zuul默认会丢弃原来的session并且生成新的session，所以有次配置
   sensitive-headers: "*"

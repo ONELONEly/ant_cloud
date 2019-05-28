@@ -10,7 +10,7 @@ spring:
     config:
       server:
         native:
-          search-locations: ../spring_cloud/config_server/config
+          search-locations: classpath:/config
       #        git:
 #          uri: https://github.com/ONELONEly/spring_cloud_config.git
 #          search-paths: spring_cloud_config

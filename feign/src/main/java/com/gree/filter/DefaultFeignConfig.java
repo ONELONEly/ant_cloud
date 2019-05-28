@@ -28,18 +28,12 @@ public class DefaultFeignConfig implements RequestInterceptor {
         if(StringUtils.isNotEmpty(traceId)){
             requestTemplate.header("x-trace-id", traceId);
         }
+
         String xUser = UserContext.getXUser();
-        if(StringUtils.isNotEmpty(xUser)){
+        if(StringUtils.isNotEmpty(xUser) && !"{}".equals(xUser)){
             requestTemplate.header("x-user", xUser);
         }
-        String platform = UserContext.getPlatform();
-        if(StringUtils.isNotEmpty(platform)){
-            requestTemplate.header("x-platform", platform);
-        }
-        String version = UserContext.getVersion();
-        if(StringUtils.isNotEmpty(version)){
-            requestTemplate.header("x-version", "1.2");
-        }
+
         if(StringUtils.isNotEmpty(appName)){
             requestTemplate.header("x-direct-invoker", appName);
         }

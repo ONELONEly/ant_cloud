@@ -47,7 +47,10 @@ public class FeignClientsConfigurationCustom implements RequestInterceptor {
                 Enumeration<String> values = request.getHeaders(name);
                 while (values.hasMoreElements()) {
                     String value = values.nextElement();
-                    template.header(name, value);
+                    if(!"{}".equals(value)){
+                        template.header(name, value);
+                    }
+                    logger.info("headerName:{},headerValue:{}",name,value);
                 }
             }
         }

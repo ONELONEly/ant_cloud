@@ -45,10 +45,6 @@
             <groupId>com.gree</groupId>
             <artifactId>redis</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>data</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

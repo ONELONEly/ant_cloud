@@ -47,7 +47,8 @@ public class DefaultHttpAuthenticationManager implements HttpAuthenticationManag
         if(AuthConstants.SUPER_TOKEN.equals(token)){
             return null;
         }
-        return new HandleRestResponse<LinkedHashMap>().handle(LinkedHashMap.class,authTokenApi.checkToken(token,uri));
+        HandleRestResponse<LinkedHashMap> handle = new HandleRestResponse<>(LinkedHashMap.class);
+        return handle.handle(authTokenApi.checkToken(token,uri));
     }
 
     @Override

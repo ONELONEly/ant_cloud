@@ -92,13 +92,13 @@ public class TokenFilter extends ZuulFilter {
     public Object run() throws ZuulException {
         RequestContext ctx = RequestContext.getCurrentContext();
         HttpServletRequest request = ctx.getRequest();
-        String url = request.getRequestURI();
         Map<String, Object> authenticate;
-        UserAuthenticate userAuthenticate = null;
+        UserAuthenticate userAuthenticate;
         String errorMessage = "";
         try {
             authenticate = httpAuthenticationManager.authenticate(request);
             userAuthenticate = getUserAuthenticate(authenticate);
+            ctx.addZuulRequestHeader("x-user",JSON.toJSONString(userAuthenticate));
         } catch (TokenExpiredException e) {
             errorMessage = "请重新完成登录";
         }
@@ -110,7 +110,6 @@ public class TokenFilter extends ZuulFilter {
             ctx.getResponse().setContentType("application/json;charset=utf-8");
         } else {
             ctx.set("isSuccess", true);
-            ctx.addZuulRequestHeader("xUser", JSON.toJSONString(userAuthenticate));
         }
         return null;
     }
