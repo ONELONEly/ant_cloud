@@ -16,10 +16,8 @@
 
     <modules>
         <module>./config_server/pom.xml</module>
-        <module>./userService/pom.xml</module>
         <module>./eureka_server/pom.xml</module>
         <module>./redis/pom.xml</module>
-        <module>./userService_feign/pom.xml</module>
         <module>./zuul/pom.xml</module>
         <module>./common/pom.xml</module>
         <module>./data/pom.xml</module>
@@ -27,6 +25,15 @@
         <module>./auth/pom.xml</module>
         <module>./feign/pom.xml</module>
         <module>./service/pom.xml</module>
+
+        <module>./menu_service/pom.xml</module>
+        <module>./user_service/pom.xml</module>
+        <module>./materialStorage_service/pom.xml</module>
+        <module>./materialReceive_service/pom.xml</module>
+
+        <module>./user_feign/pom.xml</module>
+        <module>./menu_feign/pom.xml</module>
+        <module>./material_feign/pom.xml</module>
     </modules>
 
     <name>spring_cloud</name>

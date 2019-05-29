@@ -40,8 +40,9 @@ public class MySqlGenerator {
      */
     public static void main(String[] args) {
         // 代码生成器
-        String[] tables = {"CBASE002","CBASE007","MATERIAL","MC_RC_ACCESSORY","MT_ACCESSORY","MT_RC_DETAIL","MT_RECEIVE","ST_ACCESSORY","ST_DETAIL","STORAGE","VARIETY","VENDER","ACCESSORY_LOG"};
+//        String[] tables = {"CBASE002","CBASE007","MATERIAL","MC_RC_ACCESSORY","MT_ACCESSORY","MT_RC_DETAIL","MT_RECEIVE","ST_ACCESSORY","ST_DETAIL","STORAGE","VARIETY","VENDER","ACCESSORY_LOG"};
 
+        String[] tables = {"MENU","USER_MENU"};
         Set<String> tableLists = new HashSet<>(Arrays.asList(tables));
 
         for (String table:tableLists) {

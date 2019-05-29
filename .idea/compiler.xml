@@ -13,15 +13,23 @@
         <module name="data" />
         <module name="eureka_server" />
         <module name="feign" />
+        <module name="material_feign" />
+        <module name="materialReceive_Service" />
+        <module name="materialStorage_service" />
+        <module name="menu_feign" />
+        <module name="menu_service" />
         <module name="redis" />
         <module name="security" />
         <module name="service" />
-        <module name="userService" />
-        <module name="userService_feign" />
+        <module name="user_feign" />
+        <module name="user_service" />
         <module name="zuul" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="materialService_feign" target="1.8" />
+      <module name="menu_Service" target="1.8" />
+      <module name="menuService_feign" target="1.8" />
       <module name="service_ribbon" target="1.8" />
     </bytecodeTargetLevel>
   </component>
