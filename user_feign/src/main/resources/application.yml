@@ -1,36 +1,35 @@
-server:
-  port: 8766
-
-
 spring:
   application:
-    name: service-feign
+    #服务与服务之间相互调用一般都是根据这个name
+    name: user-feign
 
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
-      name: gree
-      profile: dev
+  zipkin:
+    sender:
+      type: web
+    base-url: http://localhost:9411
+    service:
+      name: user-feign
+  sleuth:
+    sampler:
+      probability: 1.0
 
 
-feign:
-  hystrix:
-    enabled: false
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8760/eureka/
+  #消息队列
+  rabbitmq:
+    port: 5672
+    host: 127.0.0.1
+    username: jinyu
+    password: 123456
 
-security:
-  oauth2:
-    client:
-      access-token-uri: http://localhost:8769/auth/oauth/token
-      user-authorization-uri: http://localhost:8769/auth/oauth/authorize
-      client-id: web
-    resource:
-      user-info-uri:  http://localhost:8769/member
-      prefer-token-info: false
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
+  endpoint:
+    health:
+      show-details: always
+    refresh:
+      enabled: true
 

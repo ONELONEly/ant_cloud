@@ -5,10 +5,10 @@ spring:
         enabled: true
         service-id: config-server
       name: gree
-      profile: service
+      profile: feign
 
 server:
-  port: 8764
+  port: 9102
 
 eureka:
   instance:

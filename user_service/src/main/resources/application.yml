@@ -3,16 +3,12 @@ spring:
     #服务与服务之间相互调用一般都是根据这个name
     name: user-service
 
-  output:
-    ansi:
-      enabled: always
-
   zipkin:
     sender:
       type: web
     base-url: http://localhost:9411
     service:
-      name: client-say-mouzi
+      name: user-service
   sleuth:
     sampler:
       probability: 1.0
@@ -25,14 +21,6 @@ spring:
     username: jinyu
     password: 123456
 
-  cloud:
-    config:
-      discovery:
-        enabled: true
-        service-id: config-server
-      name: gree
-      profile: dev
-
 management:
   endpoints:
     web:
@@ -44,22 +32,4 @@ management:
       show-details: always
     refresh:
       enabled: true
-
-security:
-  oauth2:
-    resource:
-      id: gree-member
-      user-info-uri: http://localhost:8769/api/member
-      prefer-token-info: false
-
-
-
-mybatis:
-  configuration:
-    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-
-logging:
-  level:
-    com.gree:
-      debug
 

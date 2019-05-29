@@ -32,10 +32,13 @@ zuul:
   routes:
     api-a:
       path: /user/**
-      serviceId: service-feign
+      serviceId: user-feign
     api-b:
-      path: /auth/**
-      serviceId: gree-auth
+      path: /menu/**
+      serviceId: menu-feign
+    api-c:
+      path: /material/**
+      serviceId: material-feign
   #zuul默认会丢弃原来的session并且生成新的session，所以有次配置
   sensitive-headers: "*"
 #  retryable: false

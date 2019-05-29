@@ -47,9 +47,22 @@ spring:
 
     timeout: 10ms
 
+  output:
+    ansi:
+      enabled: always
+
+security:
+  oauth2:
+    resource:
+      id: gree-member
+      user-info-uri: http://localhost:8769/api/member
+      prefer-token-info: false
+
 mybatis:
   mapper-locations: classpath*:/mapper/*Mapper.xml
   type-aliases-package: com.gree
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
 
 mybatis-plus:
   mapper-locations: classpath:/mapper/*Mapper.xml
@@ -69,7 +82,7 @@ mybatis-plus:
       logic-delete-value: 0
       logic-not-delete-value: 1
       db-type: h2
-     #刷新mapper 调试神器
+      #刷新mapper 调试神器
       refresh: true
       #数据库表下划线
       table-underline: true
@@ -79,3 +92,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
 
+logging:
+  level:
+    com.gree:
+      debug

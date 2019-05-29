@@ -8,7 +8,7 @@ spring:
       profile: service
 
 server:
-  port: 8764
+  port: 9003
 
 eureka:
   instance:
