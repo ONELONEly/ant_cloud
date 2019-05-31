@@ -22,7 +22,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("MT_RECEIVE")
-@KeySequence("SEQ_mtReceive")
 public class MtReceivePO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

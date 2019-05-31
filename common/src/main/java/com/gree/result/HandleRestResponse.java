@@ -6,15 +6,16 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class HandleRestResponse<T> implements Serializable {
     private static final long serialVersionUID = -1769325259689007824L;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    private Class<T> eleType;
+    private Class<?> eleType;
 
-    public HandleRestResponse(Class<T> eleType) {
+    public HandleRestResponse(Class<?> eleType) {
         this.eleType = eleType;
     }
 

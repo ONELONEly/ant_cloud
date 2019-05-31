@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gree.mapper.MenuMapper">
 
+    <select id="getMenuByUserId" resultType="com.gree.entity.po.MenuPO">
+        select * from MENU where MENU_ID in (select MENU_ID from USER_MENU
+        <where>
+            ${ew.sqlSegment}
+        </where>
+        )
+    </select>
 </mapper>

@@ -23,7 +23,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("MT_ST_ACCESSORY")
-@KeySequence("SEQ_stAccessory")
 public class MtStAccessoryPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

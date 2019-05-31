@@ -24,7 +24,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("MT_RC_ACCESSORY")
-@KeySequence("SEQ_mcRcAccessory")
 public class MtRcAccessoryPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;

@@ -1,13 +1,15 @@
 package com.gree.entity.po;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.time.LocalDateTime;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import com.gree.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -19,8 +21,10 @@ import lombok.experimental.Accessors;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @Accessors(chain = true)
 @TableName("MENU")
+@KeySequence(value = "SEQ_menu",clazz = Integer.class)
 public class MenuPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -28,8 +32,8 @@ public class MenuPO extends BaseEntity {
     /**
      * 菜单ID
      */
-    @TableId("MENU_ID")
-    private Double menuId;
+    @TableId(value = "MENU_ID", type = IdType.INPUT)
+    private Integer menuId;
 
     /**
      * 图片地址
@@ -58,7 +62,8 @@ public class MenuPO extends BaseEntity {
     /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 
     /**
@@ -71,7 +76,14 @@ public class MenuPO extends BaseEntity {
      * 版本
      */
     @TableField("VERSION")
-    private Double version;
+    private Integer version;
 
-
+    public MenuPO(String src, String title, String url, String icon, String modifyUser, Integer version) {
+        this.src = src;
+        this.title = title;
+        this.url = url;
+        this.icon = icon;
+        this.modifyUser = modifyUser;
+        this.version = version;
+    }
 }

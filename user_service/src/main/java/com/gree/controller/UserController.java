@@ -3,6 +3,7 @@ package com.gree.controller;
 import com.gree.entity.dto.UserDto;
 import com.gree.entity.po.UserPO;
 import com.gree.redisService.serviceImp.UserServiceImp;
+import com.gree.util.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class UserController {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final UserServiceImp userServiceImp;
+    private final BeanUtil beanUtil = BeanUtil.createBeanUtil();
 
     @Autowired
     public UserController(UserServiceImp userServiceImp) {

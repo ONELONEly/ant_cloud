@@ -22,7 +22,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("MT_STORAGE")
-@KeySequence("SEQ_storage")
 public class MtStoragePO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
