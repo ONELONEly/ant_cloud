@@ -21,7 +21,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @MapperScan("com.gree.mapper")
 
-@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
+@SpringBootApplication
 public class MenuFeignApplication
 {
     public static void main( String[] args )

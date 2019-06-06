@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <option name="BUILD_PROCESS_HEAP_SIZE" value="750" />
-    <option name="BUILD_PROCESS_ADDITIONAL_VM_OPTIONS" value="-Xms128m -Xmx256m" />
+    <option name="BUILD_PROCESS_ADDITIONAL_VM_OPTIONS" value="-Xms64m -Xmx128m" />
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -15,23 +15,25 @@
         <module name="eureka_server" />
         <module name="feign" />
         <module name="material_feign" />
+        <module name="material_service" />
         <module name="materialReceive_Service" />
-        <module name="materialStorage_service" />
         <module name="menu_feign" />
         <module name="menu_service" />
         <module name="redis" />
+        <module name="resource_service" />
         <module name="security" />
         <module name="service" />
         <module name="user_feign" />
         <module name="user_service" />
+        <module name="variety_service" />
         <module name="zuul" />
       </profile>
+      <profile name="Annotation profile for spring_cloud" enabled="true">
+        <sourceOutputDir name="../material_service/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../material_service/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="materialStorage_service" />
+      </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="materialService_feign" target="1.8" />
-      <module name="menu_Service" target="1.8" />
-      <module name="menuService_feign" target="1.8" />
-      <module name="service_ribbon" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

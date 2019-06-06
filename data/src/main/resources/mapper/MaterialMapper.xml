@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gree.mapper.MaterialMapper">
 
+    <select id="listVarietyData" resultType="com.gree.entity.po.MaterialPO">
+        select * from material m where m.VARIETY_ID in (select v.VARIETY_ID from VARIETY v
+       <where>
+           ${ew.sqlSegment}
+       </where>
+       )
+    </select>
 </mapper>

@@ -1,5 +1,5 @@
 package com.gree.impl;
-import com.gree.service.impl.MenuServiceImpl;
+import com.gree.service.imp.MenuServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;

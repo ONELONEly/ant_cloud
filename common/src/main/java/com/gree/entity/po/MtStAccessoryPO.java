@@ -43,12 +43,18 @@ public class MtStAccessoryPO extends BaseEntity {
      * 入库图片
      */
     @TableField("ST_ACCESSORY_RESOURCE")
-    private Blob stAccessoryResource;
+    private String stAccessoryResource;
+
+    /**
+     * 入库图片大小
+     */
+    @TableField("RESOURCE_SIZE")
+    private Long resourceSize;
 
     /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 

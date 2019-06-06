@@ -1,12 +1,9 @@
 package com.gree.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.gree.entity.dto.UserDto;
-import com.gree.entity.po.UserPO;
 import com.gree.entity.vo.UserMessageVO;
 import com.gree.exception.KellyException;
 import com.gree.serviceApi.AuthTokenApi;
-import com.gree.redisService.RedisService;
 import com.gree.result.HandleRestResponse;
 import com.gree.result.ResponseInfoEnum;
 import com.gree.serviceApi.UserServiceApi;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RestController
@@ -42,13 +38,10 @@ public class LoginController {
 
     private final UserServiceApi userServiceApi;
 
-    private final RedisService redisService;
-
     @Autowired
-    public LoginController(HttpTokenExtractor httpTokenExtractor, AuthTokenApi authTokenApi, RedisService redisService, UserServiceApi userServiceApi) {
+    public LoginController(HttpTokenExtractor httpTokenExtractor, AuthTokenApi authTokenApi, UserServiceApi userServiceApi) {
         this.httpTokenExtractor = httpTokenExtractor;
         this.authTokenApi = authTokenApi;
-        this.redisService = redisService;
         this.userServiceApi = userServiceApi;
     }
 
@@ -76,7 +69,6 @@ public class LoginController {
             UserDto userDto = userDtoHandle.handle(userServiceApi.fetchUserUsPw(username, password));
             if (userDto != null) {
                 tokenMap = authTokenApi.getToken("password", username, password, client_id, client_secret).getData();
-                redisService.set(username, tokenMap, 30 * 24 * 60);
                 token = tokenMap.get("access_token").toString();
             } else {
                 throw new KellyException(ResponseInfoEnum.NONE_USER, new Date(), "KellyException");
@@ -98,7 +90,7 @@ public class LoginController {
     public UserMessageVO getUserInfo (@RequestParam("userId") String userId){
         UserDto userDto = userDtoHandle.handle(userServiceApi.fetchUserUsId(userId));
         UserMessageVO userMessageVO = new UserMessageVO(userDto, new String[]{"admin","admin_master"},UserContext.getToken());
-        UserAuthenticate userAuthenticate = UserContext.parseJson(UserContext.getXUser());
+        UserAuthenticate userAuthenticate = UserContext.getUserMsg();
         return userMessageVO;
     }
 }

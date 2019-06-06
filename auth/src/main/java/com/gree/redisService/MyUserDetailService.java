@@ -69,7 +69,7 @@ public class MyUserDetailService implements UserDetailsService {
             }
         }
         logger.info("艺锦欧巴已经结束local");
-        return new User(member.getDeac(), member.getPawd(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
+        return new User(member.getUsid(), member.getPawd(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
     }
 }
 

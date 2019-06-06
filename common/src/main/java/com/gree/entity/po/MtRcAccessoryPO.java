@@ -44,12 +44,18 @@ public class MtRcAccessoryPO extends BaseEntity {
      * 物料领用图片资源
      */
     @TableField("MC_RC_ACCESSORY_RESOURCE")
-    private Blob mcRcAccessoryResource;
+    private String mcRcAccessoryResource;
+
+    /**
+     * 入库图片大小
+     */
+    @TableField("RESOURCE_SIZE")
+    private Long resourceSize;
 
     /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 

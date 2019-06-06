@@ -60,8 +60,8 @@ public class MtStoragePO extends BaseEntity {
     /**
      * 用途
      */
-    @TableField("BUSSINESS")
-    private String bussiness;
+    @TableField("BUSINESS")
+    private String business;
 
     /**
      * 状态
@@ -72,7 +72,7 @@ public class MtStoragePO extends BaseEntity {
     /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 

@@ -1,6 +1,6 @@
 package com.gree;
 
-import com.gree.service.impl.MaterialServiceImpl;
+import com.gree.service.imp.MaterialServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;

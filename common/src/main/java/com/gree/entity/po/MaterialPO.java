@@ -32,7 +32,7 @@ public class MaterialPO extends BaseEntity {
     /**
      * 物料ID
      */
-    @TableId(value = "MATERIAL_GUID",type = IdType.ID_WORKER_STR)
+    @TableId(value = "MATERIAL_GUID",type = IdType.INPUT)
     private String materialGuid;
 
     /**

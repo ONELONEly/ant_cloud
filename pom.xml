@@ -34,6 +34,9 @@
         <module>./user_feign/pom.xml</module>
         <module>./menu_feign/pom.xml</module>
         <module>./material_feign/pom.xml</module>
+        <module>./variety_service/pom.xml</module>
+        <module>./resource_service/pom.xml</module>
+        <module>./material_service/pom.xml</module>
     </modules>
 
     <name>spring_cloud</name>

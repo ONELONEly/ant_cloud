@@ -80,10 +80,6 @@
             <groupId>com.gree</groupId>
             <artifactId>common</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.gree</groupId>
-            <artifactId>redis</artifactId>
-        </dependency>
     </dependencies>
 
     <build>

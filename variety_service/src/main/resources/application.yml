@@ -1,0 +1,35 @@
+spring:
+  application:
+    #服务与服务之间相互调用一般都是根据这个name
+    name: variety-service
+
+  zipkin:
+    sender:
+      type: web
+    base-url: http://localhost:9411
+    service:
+      name: variety-service
+  sleuth:
+    sampler:
+      probability: 1.0
+
+
+  #消息队列
+  rabbitmq:
+    port: 5672
+    host: 127.0.0.1
+    username: jinyu
+    password: 123456
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+  endpoint:
+    health:
+      show-details: always
+    refresh:
+      enabled: true
+

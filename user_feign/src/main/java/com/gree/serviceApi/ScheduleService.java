@@ -1,6 +1,6 @@
 package com.gree.serviceApi;
 
-import com.gree.serviceApi.serviceApiImp.ScheduleServiceHystric;
+import com.gree.serviceApi.hystric.ScheduleServiceHystric;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;

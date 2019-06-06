@@ -2,6 +2,8 @@ package com.gree.util;
 
 import com.alibaba.fastjson.JSON;
 import com.gree.exception.KellyException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -56,12 +58,13 @@ public class UserContext {
         return (String)value;
     }
 
-    public static UserAuthenticate parseJson(String jsonStr) {
+    public static UserAuthenticate getUserMsg() {
+        System.out.println(getXUser());
         try {
-            jsonStr = jsonStr.replace("\\", "");
+            String jsonStr = getXUser().replace("\\", "");
             return JSON.parseObject(jsonStr,UserAuthenticate.class);
         } catch (Exception e) {
-            throw new KellyException("header里x-user解析错误：x-user=" + jsonStr + e.getMessage(),"",new Date(),"");
+            throw new KellyException("header里x-user解析错误：x-user=" + getXUser() + e.getMessage(),"",new Date(),"");
         }
     }
 

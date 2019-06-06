@@ -2,6 +2,10 @@ package com.gree.service;
 
 import com.gree.entity.po.MaterialPO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gree.util.DatabaseType;
+import com.gree.util.TargetDataSource;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IMaterialService extends IService<MaterialPO> {
 
+    @TargetDataSource(DatabaseType.master)
+    List<MaterialPO> listPaintsData ();
+
+    @TargetDataSource(DatabaseType.master)
+    List<MaterialPO> listGiftsData ();
 }

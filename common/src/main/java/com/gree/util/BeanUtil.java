@@ -1,5 +1,8 @@
 package com.gree.util;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -13,6 +16,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @createTime 2019 -05-31 15:26:50
  */
 public class BeanUtil {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
      * @description 系统转换过的实体记录（方便复用）
@@ -179,17 +184,17 @@ public class BeanUtil {
      *
      * @param beanClass 资源类
      * @return 资源类的所有 key属性名称 value属性
-     * @description 获取资源类的所有 key属性名称 value属性 （首先从META_DATA中获取，获取不到再去解析并存到当前META_DATA）
+     * @description 获取资源类的所有 key属性名称 value属性 （首先从META_DATA中获取，获取不到再去解析并存到当前META_DATA）TODO 解决一个异常，参数变更问题
      * @author create by jinyuk@foxmail.com(180365@gree.com.cn).
      * @version * @createTime 2019-05-31 15:26:50
      */
     private Map<String, Field> getReferableFieldMap (Class<?> beanClass) {
+        Class<?> clazz = beanClass;
         if (!META_DATA.containsKey(beanClass)) {
             try {
                 lock.lock();
                 if (!META_DATA.containsKey(beanClass)) {
                     Map<String, Field> map = new HashMap<>();
-                    Class<?> clazz = beanClass;
                     while (beanClass != null) {
                         map.putAll(getDeclaredFieldsMap(beanClass));
                         beanClass = beanClass.getSuperclass();
@@ -200,7 +205,7 @@ public class BeanUtil {
                 lock.unlock();
             }
         }
-        return META_DATA.get(beanClass);
+        return META_DATA.get(clazz);
     }
 
     /**

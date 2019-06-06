@@ -1,7 +1,10 @@
 package com.gree.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.gree.entity.po.MaterialPO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface MaterialMapper extends BaseMapper<MaterialPO> {
 
+    List<MaterialPO> listVarietyData (@Param("ew") Wrapper wrapper);
 }

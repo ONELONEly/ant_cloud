@@ -22,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("VARIETY")
-@KeySequence(value = "SEQ_material",clazz = Integer.class)
+@KeySequence(value = "SEQ_variety",clazz = Integer.class)
 public class VarietyPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -40,9 +40,15 @@ public class VarietyPO extends BaseEntity {
     private String varietyName;
 
     /**
+     * 种类类型 0：画册，1：礼品
+     */
+    @TableField("VARIETY_TYPE")
+    private Integer varietyType;
+
+    /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 
@@ -57,6 +63,4 @@ public class VarietyPO extends BaseEntity {
      */
     @TableField("VERSION")
     private Integer version;
-
-
 }

@@ -22,7 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("VENDER")
-@KeySequence(value = "SEQ_material",clazz = Integer.class)
+@KeySequence(value = "SEQ_vender",clazz = Integer.class)
 public class VenderPO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
@@ -30,8 +30,8 @@ public class VenderPO extends BaseEntity {
     /**
      * 厂家编号
      */
-    @TableId(value = "VENDER_GUID",type = IdType.INPUT)
-    private String venderGuid;
+    @TableId(value = "VENDER_ID",type = IdType.INPUT)
+    private Integer venderId;
 
     /**
      * 厂家名称
@@ -40,9 +40,21 @@ public class VenderPO extends BaseEntity {
     private String venderName;
 
     /**
+     * 厂家类型 0：画册，1：礼品
+     */
+    @TableField("VENDER_TYPE")
+    private Integer venderType;
+
+    /**
+     * 联系方式
+     */
+    @TableField("TELEPHONE")
+    private String telephone;
+
+    /**
      * 最后修改日期
      */
-    @TableField("MODIFY_DATE")
+    @TableField(value = "MODIFY_DATE",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime modifyDate;
 

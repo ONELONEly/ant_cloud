@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      name: gree
+      profile: service
+
+server:
+  port: 9004
+
+eureka:
+  instance:
+    #    hostname: client3
+    #    使用Ip注册而不是hostname
+    #    prefer-ip-address: true
+    #    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 30
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

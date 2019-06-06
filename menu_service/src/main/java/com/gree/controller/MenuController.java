@@ -2,7 +2,7 @@ package com.gree.controller;
 
 import com.gree.entity.dto.MenuDto;
 import com.gree.entity.po.MenuPO;
-import com.gree.service.impl.MenuServiceImpl;
+import com.gree.service.imp.MenuServiceImpl;
 import com.gree.util.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
