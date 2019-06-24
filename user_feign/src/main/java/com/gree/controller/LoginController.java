@@ -71,13 +71,13 @@ public class LoginController {
                 tokenMap = authTokenApi.getToken("password", username, password, client_id, client_secret).getData();
                 token = tokenMap.get("access_token").toString();
             } else {
-                throw new KellyException(ResponseInfoEnum.NONE_USER, new Date(), "KellyException");
+                throw new KellyException(ResponseInfoEnum.NONE_USER);
             }
             resultMap.put("token",token);
             resultMap.put("userId",userDto.getUserId());
             return resultMap;
         } else {
-            throw new KellyException(ResponseInfoEnum.EMPTY_USER_MSG, new Date(), "KellyException");
+            throw new KellyException(ResponseInfoEnum.EMPTY_USER_MSG);
         }
     }
 

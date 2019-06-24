@@ -36,8 +36,8 @@ public class MapperAspect {
         Class<?>[] clazz = target.getClass().getInterfaces();
         Class<?>[] parameterTypes = ((MethodSignature) joinPoint.getSignature()).getMethod().getParameterTypes();
         try {
-            log.debug("method:{},{},{}",method,clazz.length,joinPoint.getSignature());
             Method m = clazz[0].getMethod(method, parameterTypes);
+            log.debug("method:{},g-y-j-n",m.getName());
             //如果方法上存在切换数据源的注解，则根据注解内容进行数据源切换
             if (m != null && m.isAnnotationPresent(TargetDataSource.class)) {
                 TargetDataSource data = m.getAnnotation(TargetDataSource.class);

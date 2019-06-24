@@ -12,6 +12,13 @@ public class KellyException extends RuntimeException{
     private Date date;
     private String name;
 
+    public KellyException(ResponseInfo responseInfo) {
+        super(responseInfo.getResponseMsg());
+        this.code = responseInfo.getResponseCode();
+        this.date = new Date();
+        this.name = "KellyException";
+    }
+
 
     public KellyException(ResponseInfo responseInfo,Date date,String name) {
         super(responseInfo.getResponseMsg());

@@ -1,6 +1,7 @@
 package com.gree.entity.dto;
 
 import com.gree.entity.BaseEntity;
+import com.gree.entity.vo.MaterialVO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,4 +33,11 @@ public class MaterialDto extends BaseEntity {
      * 种类ID
      */
     private Integer varietyId;
+
+    public MaterialDto(MaterialVO materialVO) {
+        this.materialGuid = materialVO.getMaterialGuid();
+        this.materialName = materialVO.getMaterialName();
+        this.mtVenderCount = materialVO.getMaterialCount();
+        this.varietyId = materialVO.getMaterialType();
+    }
 }

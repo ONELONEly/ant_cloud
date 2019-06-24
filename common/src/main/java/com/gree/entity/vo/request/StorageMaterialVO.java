@@ -20,7 +20,7 @@ public class StorageMaterialVO extends BaseEntity {
 
     private static final long serialVersionUID = -8320470909800531772L;
     private String receiver;
-    private String venderId;
+    private Integer venderId;
     private String telephone;
     private List<MaterialVO> materialList;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

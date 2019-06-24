@@ -1,6 +1,5 @@
 package com.gree;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -19,9 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableOAuth2Sso
 
-@MapperScan("com.gree.mapper")
-
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class MenuFeignApplication
 {
     public static void main( String[] args )

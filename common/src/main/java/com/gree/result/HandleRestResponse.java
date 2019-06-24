@@ -25,9 +25,9 @@ public class HandleRestResponse<T> implements Serializable {
         if(errorResponse != null) {
             throw new KellyException(errorResponse.getErrorMsg(), errorResponse.getErrorCode(), errorResponse.getErrorDate(), errorResponse.getErrorType());
         }else if(restResponse.getData() == null){
-            throw new KellyException(ResponseInfoEnum.EMPTY_RESULT,new Date(),"KellyException");
+            throw new KellyException(ResponseInfoEnum.EMPTY_RESULT);
         }else if(restResponse.getData().getClass() != eleType){
-            throw new KellyException(ResponseInfoEnum.JSON_CONVERT_ERROR,new Date(),"KellyException");
+            throw new KellyException(ResponseInfoEnum.JSON_CONVERT_ERROR);
         }
         return (T)restResponse.getData();
     }

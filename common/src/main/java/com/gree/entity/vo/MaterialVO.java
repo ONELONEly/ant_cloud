@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author create by jinyuk@foxmail.com(180365@gree.com.cn).
@@ -22,19 +24,23 @@ public class MaterialVO extends BaseEntity {
     /**
      * 物料编号
      */
+    @NotBlank(message = "物料编号不能为空")
     private String materialGuid;
     /**
      * 物料名称
      */
+    @NotBlank(message = "物料名称不能为空")
     private String materialName;
 
     /**
      * 物料数量
      */
+    @NotNull(message = "物料数量不能为空")
     private Integer materialCount;
 
     /**
      * 物料类型
      */
+    @NotNull(message = "物料类型不能为空")
     private Integer materialType;
 }
